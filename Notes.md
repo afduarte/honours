@@ -14,3 +14,20 @@ General
 Crowdsourcing form
 
 Try to not use google forms.
+
+# 24-06 Re: Annotation Tool
+
+Notes field in annotation
+
+Session guidelines field
+Confidence on annotation
+
+Feedback (Is context useful)
+
+4 Annotators
+
+Active learning exploration/exploitation bias Epsilon greedy sampling
+
+Query by commitee/Uncertainty sample, bagging
+
+50/50 chance of getting
