@@ -31,3 +31,7 @@ Active learning exploration/exploitation bias Epsilon greedy sampling
 Query by commitee/Uncertainty sample, bagging
 
 50/50 chance of getting
+
+# 01-07 Frontend Notes
+
+[JS to read in n lines in a file](https://stackoverflow.com/questions/39479090/read-n-lines-of-a-big-text-file)
