@@ -2,8 +2,9 @@
 
 cd $(dirname $0)
 
-unzip $1 -o
+unzip -o $1
 
 git add .
 
 git commit -m "Overleaf auto update [$(date -Iminutes)]"
+
