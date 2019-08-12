@@ -25,3 +25,29 @@ Finished Insult-tagger https://github.com/afduarte/insult-tagger
 
 Started work on backend for annotation tool https://github.com/afduarte/massive-atrac-server
 
+## 22/06/2019
+
+Worked on local database connection for SQLite DB which will keep track of annotation users and annotation information.
+
+Initiated connection with test Data Structure for the type User
+
+Started Dockerfile which will build the backend project and containerise the whole application
+
+## 01/07/2019
+
+Met with Amanda, Verena and Dave to talk about the project and gather some early feedback about the interface development. (See Notes.md)
+
+Continued work on backend data structures and their links. Created file parsing mechanism .xsv for now, planning .jsonl and maybe DB connection.
+
+## 16/07/2019
+
+Almost finished Data Model implementation. Got a few bugs on some of the data structure. TBC
+
+## 22/07/2019
+
+Finished the Data model by fixing the bus on dataset to session mapping. Ready to start API planning, design and testing.
+
+## 12/08/2019
+
+Started dissertation planning and repository setup (latex template and customisation).
+
