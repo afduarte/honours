@@ -40,19 +40,19 @@ Query by committee/Uncertainty sample, bagging
 
 Ines Montani on Prodigy FAQ (https://www.youtube.com/watch?v=tMAU3gLbKII)
 
-Binary tasks are easier to process => give users option to split classification into multiple binary tasks
-  [car, boat, train] becomes -> [car, not car], [boat, not boat], [train, not train]
-  results can then be combined in multiple ways to optimise results
+* Binary tasks are easier to process => give users option to split classification into multiple binary tasks
+	- [car, boat, train] becomes -> [car, not car], [boat, not boat], [train, not train]
+	- results can then be combined in multiple ways to optimise results
 
-Noise removal model for pre-filtering before getting specific
-  for final model predicting [car,boat,train], start with a model that predicts [vehicle, not vehicle]
+* Noise removal model for pre-filtering before getting specific
+	- for final model predicting [car,boat,train], start with a model that predicts [vehicle, not vehicle]
 
 Prodigy - training an insults classifier: https://www.youtube.com/watch?v=5di0KlKl0fE&list=PLBmcuObd5An56EbwRCtNWW9JnUckO7Xp-
 
-Use [gpython](https://github.com/go-python/gpython) to provide a REPL for data conversion from the browser
- Possible alternative is [grumpy](https://github.com/grumpyhome/grumpy) which compiles python code to Go, making it faster for bigger datasets.
- perhaps give the 2 options?
- 	gpython as REPL during upload and grumpy to go through the whole dataset once
+* Use [gpython](https://github.com/go-python/gpython) to provide a REPL for data conversion from the browser
+	- Possible alternative is [grumpy](https://github.com/grumpyhome/grumpy) which compiles python code to Go, making it faster for bigger datasets.
+	- perhaps give the 2 options?
+		+ gpython as REPL during upload and grumpy to go through the whole dataset once
 
 # 22-09 Review of existing tools
 
@@ -120,18 +120,23 @@ Massive A-TRAC will always be free to use and the source code will be open.
 ### Simple user interface
 
 Annotation is boring, user interface has to be simple, usable and have minimal friction to keep users engaged
+
 (Include gamification elements? Badges for number of annotations, healthy competition through comparison with other users... etc)
 
 ### Multiple data in/out possibilities
 
 Admins have to be able to import datasets in multiples formats and output annotation data as multiple formats.
+
 Include industry standards and popular output formats that can be imported straight into popular model training frameworks
 
 ### Annotation metrics
 
-Automatically and dynamically calculate and update annotation metrics such as compatibility index across users
+Automatically and dynamically calculate and update annotation metrics such as compatibility index across users.
+
 Keep track of annotation metrics such as annotator speed, dataset progress.
+
 Add properties to users to group on (example specialists vs non-specialists, age groups, nationality... etc)
+
 There is also a possibility for annotators to communicate with the admins by submitting a not with every annotation
 
 The more complex annotation metric system should allow researchers to collect data about annotation so research on the process of annotation can be done.
@@ -139,22 +144,29 @@ The more complex annotation metric system should allow researchers to collect da
 ### Live-testing feature
 
 Allow admins to test their project configuration as it is being created by putting an excerpt of the input data through the configuration as it will at runtime.
-[Implementation detail]: Open live preview on a different tab, use local storage to share state across tabs.
+
+{Implementation detail}: Open live preview on a different tab, use local storage to share state across tabs.
 
 ### Fleshed out user system
 
 Allow 2 types of users: Annotator, Admin.
+
 Admin can create, edit, assign users to a project
+
 Annotator can only annotate on projects they've been assigned to.
 
 ### Fully extensible through flexible API
 
-Ability to create new data import types, new data export types, new storage plugins [Implementation detail]: Use Go's plugin system
-Ability to create new renderable components to customise UI [Implementation detail]: Allow Vue.js single file component file uploads
+Ability to create new data import types, new data export types, new storage plugins
+
+{Implementation detail}: Use Go's plugin system
+
+Ability to create new renderable components to customise UI {Implementation detail}: Allow Vue.js single file component file uploads
 
 ### Smart suggestion system
 
 During project creation, user will be presented with suggestions that while opinionated, are based on research and try to optimise the workflow.
+
 Examples:
 
 * Split classification task into multiple binary classifications
@@ -176,12 +188,15 @@ Examples:
 ### All types of media
 
 It will not be developed for all types of media, for example, video annotation will not be supported out of the box.
+
 Users should be able to implement it through a combination of backend and frontend plugins, using the extension API.
 
 # 22-09 Overall System Architecture overview
 
 Whole project will be orchestrated using docker-compose, as every part is configured to run as a docker container.
+
 Should always be started by a single command and configuration is all done through frontend.
+
 Should follow the [Twelve-Factor App](https://12factor.net/) principles as closely as possible.
 
 ## Backend
@@ -193,7 +208,9 @@ Will be composed of the following parts:
 ### Input/Processing
 
 File upload and processing strategy. Initially will support csv, json.
+
 Will offer JavaScript/Python REPL to process file before storage.
+
 Will offer integration with smart suggestion system to optimise job.
 
 ### Storage
@@ -207,7 +224,7 @@ Will provide user with a choice of plugabble storage backend. Initially will sup
 	- Slower processing (has to iterate through file to retrieve examples to annotate), less configuration required
 	- Simpler and acceptable for smaller jobs. Decreases complexity in the system by not storing the whole dataset in a database
 
-* [Implementation detail]: Run multiple workers for each storage type
+{Implementation detail}: Run multiple workers for each storage type
 
 ### Output
 
@@ -216,7 +233,9 @@ Exporting functionality of annotated dataset. Initially will support csv, json.
 ## Frontend
 
 Written as a Single Page Web Application (SPA), using [Vue.js](https://vuejs.org/)
+
 Employing modern web-application design techniques (State management with [VUEX](https://vuex.vuejs.org/), [Vue-router](https://router.vuejs.org/) for navigation)
+
 Advanced users can create custom components loaded dynamically into the frontend to render the annotation interface. This can be used for use cases as simple as branding or to create complex annotation interfaces depending on the use case.
 
 ### Home (Lobby)
