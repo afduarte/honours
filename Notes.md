@@ -54,7 +54,7 @@ Prodigy - training an insults classifier: https://www.youtube.com/watch?v=5di0Kl
 	- perhaps give the 2 options?
 		+ gpython as REPL during upload and grumpy to go through the whole dataset once
 
-# 22-09 Review of existing tools
+# 22-09 Review of existing [tools](https://www.datasetlist.com/tools/)
 
 ### [Prodigy](https://prodi.gy/)
 
@@ -110,6 +110,20 @@ Prodigy - training an insults classifier: https://www.youtube.com/watch?v=5di0Kl
 	- No annotation metrics available
 
 # 22-09 Massive A-TRAC Feature definition
+
+## Motivation
+
+There are a lot of tools but they seem to be created alongside models or frameworks, which means there is no interoperability/standard. (e.g: YOLO BBox Annotation Tool, created for YOLO and then extended, Prodigy created for spaCy, then extended)
+
+This project aims to create a tool that is both extendable all the way and makes no assumptions about the input data/output formats.
+
+Due to time constraints, the project will not be a one-size-fits-all tool, but rather will document how to extend it to fit new systems as they appear and/or systems that have not been considered during implementation.
+
+The design of this tool will also focus on the UI/UX aspect, trying to provide an interface that is usable at its core and focuses on minimising friction for the annotators (even if that means more configuration for the admin).
+
+The system will also focus on gathering data for research on the process of annotating data, so patterns can emerge to both design better tools but also confirm or deny assumptions that are made by annotation tool designers.
+
+M.A-TRAC will be a multi-tenant, multi-user application and will provide useful tools that make use of the collected meta-data from annotators, and not just the annotation data generated within the system.
 
 ## Main features
 
