@@ -134,6 +134,8 @@ Keep track of annotation metrics such as annotator speed, dataset progress.
 Add properties to users to group on (example specialists vs non-specialists, age groups, nationality... etc)
 There is also a possibility for annotators to communicate with the admins by submitting a not with every annotation
 
+The more complex annotation metric system should allow researchers to collect data about annotation so research on the process of annotation can be done.
+
 ### Live-testing feature
 
 Allow admins to test their project configuration as it is being created by putting an excerpt of the input data through the configuration as it will at runtime.
@@ -165,6 +167,9 @@ Examples:
 	- [car, boat, train] dataset is fed through list of car, boat and train models
 	- [abusive, not-abusive] dataset is fed through list of profanity words
 	- reduces the size of the initial dataset by making assumptions about the contents of the data
+* Offer users a rough estimation of time per annotation based on the complexity of the job
+	- Not sure if possible, have to find research about annotation and annotation times
+	- If not possible, delay to a stage where sufficient usage data has been gathered to estimate times
 
 ## What it will not be
 
