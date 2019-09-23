@@ -109,6 +109,20 @@ Prodigy - training an insults classifier: https://www.youtube.com/watch?v=5di0Kl
 * Cons
 	- No annotation metrics available
 
+### Earlier tools: [MMAX2](http://mmax2.net/), [MAE](https://github.com/keighrim/mae-annotation)
+* Pros
+	- Free, open source
+	- Lay down the research foundations for later work
+	- Make no assumptions about the data
+* Cons
+	- Are mostly geared to annotation of data for problems that are not so commonly needed today (because there are now open comprehensive annotated datasets for most of these problems)
+		+ Part-of-speech tagging
+		+ General Named Entity Recognition (People, Places, Organisations)
+	- Desktop applications that involve the annotator installing something on their computer.
+	- Interfaces are terrible when compared to newer systems
+	- Overly complex over-engineered tools that tried to solve every problem
+	- Offer no real-time collaboration facilities
+
 # 22-09 Massive A-TRAC Feature definition
 
 ## Motivation
@@ -263,3 +277,41 @@ Where Admins can create and configure new projects, create new users, assign use
 ### Annotation (Ground floor)
 
 Where Annotators can annotate data related to the projects they're inserted in.
+
+# 23-09 Meeting
+
+Deadline Week 9:
+
+## Intro
+
+Fleshed out description of project, aims, motivation...
+
+## Literature review
+
+Academic and technical literature review of project.
+
+Technical should focus on existing tools and compare to the tool being built, highlighting how the new tool solves shortcomings of existing tools.
+
+Academic should focus on existing literature on the academic side of the project, namely Active Learning and how the tool intends to solve existing problems.
+
+## Project plan
+
+Should detail breakdown of work for the implementation stage of the project. Gannt chart
+
+Annotation research on efficiency.
+Active learning
+
+Skype: dimitra.gkatzia 07/10 9AM
+
+# 23-09 Lit review notes
+
+* Natural Language Annotation for Machine Learning (Pustejovsky and Stubbs, 2012)
+	- Useful information about corpus creation
+	- Nice [set of slides](https://www.cs.brandeis.edu/~cs140b/CS140b_slides/NLAML_CS140b-2015.pdf) with key takeaways (not detailed enough but a good start)
+* Handbook of Linguistic Annotation (Ide and Pustejovsky, 2017)
+	- More recent take by Pustejovsky
+* Collaborative Annotation for Reliable Natural Language Processing (Karën Fort, 2016)
+	- Available at [O'Reilly's Safari](https://learning.oreilly.com/library/view/collaborative-annotation-for/9781848219045/cover.xhtml)
+* International Standard for a Linguistic Annotation Framework (Ide and Romary)
+	- Available [here](https://arxiv.org/pdf/0707.3269.pdf)
+	- Uses RDF as a means of standardisation of annotation data
