@@ -315,3 +315,37 @@ Skype: dimitra.gkatzia 07/10 9AM
 * International Standard for a Linguistic Annotation Framework (Ide and Romary)
 	- Available [here](https://arxiv.org/pdf/0707.3269.pdf)
 	- Uses RDF as a means of standardisation of annotation data
+
+# 30-09 Lit review concept matrix
+
+|                  | UI/UX | Active Learning | Gamification | Research on Annotation | Pre-annotation |
+|:-----------------|:-----:|:---------------:|:------------:|:----------------------:|:--------------:|
+| PAL              |       |                 | X            |                        | X              |
+| -gamifir-2015    |       |                 | X            |                        |                |
+| -bartle-1996     |       |                 | X            |                        |                |
+|                  |       |                 |              |                        |                |
+
+## Notes
+
+Gamification based on (Bartle, 1996), an annotation system should have all their "players" classified as Achievers, meaning the gamification aspects should emphasize ACTING on the WORLD.
+In this context ACTING is annotating and the world is the annotation task. Therefore the following reccomendations are taken on board:
+
+Ways to emphasise WORLD over PLAYERS: 
+* have only basic communication facilities
+	- Notes system on annotation is 1 way, only admins can ever see notes
+* have few ways that players can do things to other players
+	- There are no interactions between annotators
+* make building facilities easy and intuitive
+	- The user interface aspect. Reduce friction from the annotation process
+
+Ways to emphasise ACTING over INTERACTING: 
+provide a game manual
+* include auto-map facilities (in some MUDS there was a mini-map of the game area)
+	- In this context can mean showing the annotator all the achievements that are available to earn
+* include auto-log facilities (recording of every action)
+	- system does this by default, but the takeaway here is a history so the user knows what they've done.
+	- time tracking (with idle prevention). This gives the admins an idea of how much time someone spent on annotating
+	- {Implementation detail: idle-js in combination with server-side tracking of onActive/onIdle events}
+* raise the rewards for achievement
+	- Include badges earned for specific achievements
+	- Badge system that shows admins the annotator's badges (makes it more likely that the admin will recruit the same annotator for another project, meaning the financial reward increases for the annotator)
