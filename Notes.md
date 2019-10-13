@@ -356,6 +356,10 @@ Been gathering papers, have not read all of them yet
 
 # 7-10 Research
 
+## Research questions
+
+
+
 ## Active Learning
 
 ### From Pustojevsky & Stubbs
@@ -379,3 +383,19 @@ Strategies:
 	- Rather than trying to reduce the amount of error, this method tries to reduce the amount of noise in the model.
 * Density-weighted methods
 	- These strategies use the idea of choosing the data that is most representative (feature-wise) of the rest of the pool, using the assumption that learning more about the features that most of the data shares will more quickly allow all the data to be classified.
+
+### From Settles
+
+[Lecture on Active Learning](https://www.youtube.com/watch?v=YyI-S2--BYc)
+
+
+
+
+
+### Further research
+
+Stream-Based selective sampling (same as Online learning?)
+
+https://github.com/google/active-learning
+
+https://www.datacamp.com/community/tutorials/active-learning
