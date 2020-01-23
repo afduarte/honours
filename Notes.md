@@ -399,3 +399,9 @@ Stream-Based selective sampling (same as Online learning?)
 https://github.com/google/active-learning
 
 https://www.datacamp.com/community/tutorials/active-learning
+
+# 28-10 Questions for Dimitra
+
+Research questions? Struggling to define them.
+
+Presentation of system functionality in Aims and Objective or its own chapter? technical specification? 
