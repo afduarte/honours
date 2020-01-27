@@ -1,2 +1,5 @@
 *.tbl
 *.csv
+
+# VS Code workspace files
+*.code-workspace
