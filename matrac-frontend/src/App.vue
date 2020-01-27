@@ -1,12 +1,27 @@
-<template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
-  </div>
+<template lang="pug">
+  #app
+    p(v-if="error") {{error}}
+    p(v-if="loading") Loading...
+    p(v-if="user.Pin") Logged in as: {{user.Pin}}
+    p(v-else) Not logged in
+    #nav
+      router-link(to="/") Home
+      router-link(to="/about") About
+    router-view
 </template>
+
+<script>
+import { mapState } from 'vuex';
+
+export default {
+  computed: {
+    ...mapState('app', ['user', 'loading', 'error']),
+  },
+  mounted() {
+
+  },
+};
+</script>
 
 <style lang="scss">
 #app {
