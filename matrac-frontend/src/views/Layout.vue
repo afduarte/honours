@@ -38,16 +38,20 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #3F247A;
+  transition: 1s;
   display: grid;
-  grid-template-columns: 0fr 10fr 0fr;
+  grid-template-columns: 1fr 82fr 1fr;
   &.sbl{
-    grid-template-columns: 2fr 12fr 0fr;
+    transition: 1s;
+    grid-template-columns: 12fr 71fr 1fr;
   }
   &.sbr{
-    grid-template-columns: 0fr 12fr 2fr;
+    transition: 1s;
+    grid-template-columns: 1fr 71fr 12fr;
   }
   &.sblr{
-    grid-template-columns: 2fr 10fr 2fr;
+    transition: 1s;
+    grid-template-columns: 12fr 60fr 12fr;
   }
   grid-template-areas:
     "header header header"
