@@ -1,21 +1,33 @@
 <template lang="pug">
   #app
-    p(v-if="error") {{error}}
     p(v-if="loading") Loading...
-    p(v-if="user.Pin") Logged in as: {{user.Pin}}
-    p(v-else) Not logged in
-    #nav
-      router-link(to="/") Home
-      router-link(to="/about") About
-    router-view
+    template(v-if="userLoggedIn")
+      Layout
+    modal(v-else)
+      .header(slot="header")
+        h1 Login
+      .body(slot="body")
+        Login
+      .footer(slot="footer")
+        p(v-if="error") {{error}}
+        p(v-else) Log in with the 6 digit pin code provided to you by an Administrator
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapGetters } from 'vuex';
+import Modal from '@/components/Modal.vue';
+import Login from '@/views/Login.vue';
+import Layout from '@/views/Layout.vue';
 
 export default {
+  components: {
+    Modal,
+    Login,
+    Layout,
+  },
   computed: {
     ...mapState('app', ['user', 'loading', 'error']),
+    ...mapGetters('app', ['userLoggedIn']),
   },
   mounted() {
 
@@ -23,25 +35,16 @@ export default {
 };
 </script>
 
-<style lang="scss">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<style>
+/*
+  COLOUR PALLETE
+  PRIMARY: #3F247A
+  PRIMARY-ACTIVE: #D583E9
 
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+  SECONDARY: #D6D6D6
+  SECONDARY-DARKER: #686868
+ */
+body{
+  background-color: #686868;
 }
 </style>

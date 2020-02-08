@@ -1,14 +1,15 @@
 <template lang="pug">
   form.login
-    span Pin:
+    h2 Pin
     input(type="password", name="pin",v-model="pin")
-    button(type="submit",@click.prevent="submit") Login
+    button(type="submit", @click="submit",@keyup.enter="submit") Login
 </template>
 
 <script>
 import { mapActions } from 'vuex';
 
 export default {
+  name: 'Login',
   data() {
     return {
       pin: '',
@@ -16,14 +17,13 @@ export default {
   },
   methods: {
     ...mapActions('app', ['login', 'error']),
-    async submit() {
+    async submit(evt) {
+      evt.preventDefault();
+      evt.stopPropagation();
       try {
-        console.log(this.pin);
         await this.login(this.pin);
         this.pin = '';
-        this.$router.push('/');
       } catch (e) {
-        console.log(e.response.Message);
         if (e.response && e.response.Message) {
           this.error({ message: e.response.Message });
         }
@@ -32,3 +32,10 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.login{
+  display: flex;
+  flex-direction: column;
+}
+</style>

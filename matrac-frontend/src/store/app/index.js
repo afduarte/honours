@@ -1,3 +1,4 @@
+import qs from 'qs';
 import { ls, api, timer } from '../../utils';
 
 export default {
@@ -6,6 +7,8 @@ export default {
     return {
       loading: false,
       user: {},
+      sidebarL: true,
+      sidebarR: true,
       error: '',
     };
   },
@@ -19,13 +22,23 @@ export default {
     setError(state, message) {
       state.error = message;
     },
+    setSidebarL(state, val) {
+      state.sidebarL = val;
+    },
+    setSidebarR(state, val) {
+      state.sidebarR = val;
+    },
   },
   actions: {
     async login({ commit }, pin) {
       try {
         commit('loading', true);
-        const { data } = await api.post('/user/login', new URLSearchParams(`pin=${pin}`));
+        const { data } = await api.post('/user/login', qs.stringify({ pin }));
+        if (!data.Pin || !data.Role) {
+          throw new Error('Invalid login');
+        }
         commit('setUser', data);
+        ls.setItem('token', data.Pin);
       } catch (_) {
         commit('setUser', {});
       } finally {
@@ -36,6 +49,13 @@ export default {
       commit('setError', message);
       await timer(timeout);
       commit('setError', '');
+    },
+    toggleSidebar({ commit, state }, side) {
+      if (side === 'right') {
+        commit('setSidebarR', !state.sidebarR);
+      } else {
+        commit('setSidebarL', !state.sidebarL);
+      }
     },
   },
   getters: {
@@ -48,6 +68,9 @@ export default {
     },
     getUser(state) {
       return state.user;
+    },
+    userLoggedIn(state) {
+      return state.user && state.user.Pin && state.user.Role;
     },
   },
 };
