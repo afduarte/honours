@@ -23,6 +23,11 @@ const routes = [
     name: 'Manage Users',
     component: () => import(/* webpackChunkName: "admin/manage-users" */ '../views/Admin/ManageUsers/Index.vue'),
   },
+  {
+    path: '/admin/manage-projects',
+    name: 'Manage Projects',
+    component: () => import(/* webpackChunkName: "admin/manage-projects" */ '../views/Admin/ManageProjects/Index.vue'),
+  },
 ];
 
 const router = new VueRouter({

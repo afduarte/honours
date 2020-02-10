@@ -3,6 +3,7 @@ import Vuex from 'vuex';
 import { ls } from '@/utils';
 import app from './app';
 import user from './user';
+import project from './project';
 
 Vue.use(Vuex);
 
@@ -25,5 +26,6 @@ export default new Vuex.Store({
   modules: {
     app,
     user,
+    project,
   },
 });

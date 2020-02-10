@@ -1,6 +1,7 @@
 <template lang="pug">
   .admin
-    square-btn(text="Create Users", icon="users",@click="$router.push('/admin/manage-users')")
+    square-btn(text="Manage Users", icon="users",@click="$router.push('/admin/manage-users')")
+    square-btn(text="Manage Projects", icon="cog",@click="$router.push('/admin/manage-projects')")
 </template>
 
 <script>
