@@ -26,8 +26,9 @@ export default {
     Layout,
   },
   computed: {
-    ...mapState('app', ['user', 'loading', 'error']),
-    ...mapGetters('app', ['userLoggedIn']),
+    ...mapState('app', ['loading', 'error']),
+    ...mapState('user', ['user']),
+    ...mapGetters('user', ['userLoggedIn']),
   },
   mounted() {
 
@@ -45,6 +46,6 @@ export default {
   SECONDARY-DARKER: #686868
  */
 body{
-  background-color: #686868;
+  background-color: #D6D6D6;
 }
 </style>

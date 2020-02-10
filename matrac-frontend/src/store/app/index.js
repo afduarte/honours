@@ -1,12 +1,10 @@
-import qs from 'qs';
-import { ls, api, timer } from '../../utils';
+import { timer } from '../../utils';
 
 export default {
   namespaced: true,
   state() {
     return {
       loading: false,
-      user: {},
       sidebarL: true,
       sidebarR: true,
       error: '',
@@ -15,9 +13,6 @@ export default {
   mutations: {
     loading(state, value) {
       state.loading = value;
-    },
-    setUser(state, user) {
-      state.user = user;
     },
     setError(state, message) {
       state.error = message;
@@ -30,25 +25,13 @@ export default {
     },
   },
   actions: {
-    async login({ commit }, pin) {
-      try {
-        commit('loading', true);
-        const { data } = await api.post('/user/login', qs.stringify({ pin }));
-        if (!data.Pin || !data.Role) {
-          throw new Error('Invalid login');
-        }
-        commit('setUser', data);
-        ls.setItem('token', data.Pin);
-      } catch (_) {
-        commit('setUser', {});
-      } finally {
-        commit('loading', false);
-      }
-    },
     async error({ commit }, { message = 'There seems to be a problem 😫', timeout = 3000 }) {
       commit('setError', message);
       await timer(timeout);
       commit('setError', '');
+    },
+    loading({ commit }, value) {
+      commit('loading', value);
     },
     toggleSidebar({ commit, state }, side) {
       if (side === 'right') {
@@ -59,18 +42,5 @@ export default {
     },
   },
   getters: {
-    getToken() {
-      const token = ls.getItem('token');
-      if (token) {
-        return token;
-      }
-      return '';
-    },
-    getUser(state) {
-      return state.user;
-    },
-    userLoggedIn(state) {
-      return state.user && state.user.Pin && state.user.Role;
-    },
   },
 };

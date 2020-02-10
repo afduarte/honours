@@ -2,8 +2,8 @@
   .layout(:class="sidebarClasses")
     .header
       .nav
-        route-link(to="/") Home
-        route-link(to="/admin") Administration
+        router-link(to="/") Home
+        router-link(to="/admin") Administration
     .sidebar-left(@click="toggleSidebar('left')")
     .content
       router-view
@@ -56,15 +56,16 @@ export default {
   grid-template-areas:
     "header header header"
     "sbl content sbr"
-    "footer footer footer";
+    "sbl footer sbr";
 
   .header {
     grid-area: header;
     box-shadow: -1px 1px 3px 1px #d6d6d6;
+    background-color: #686868;
     .nav {
       padding: 30px;
 
-      route-link {
+      a {
         font-weight: bold;
         color: #3F247A;
         padding: 10px;
@@ -81,16 +82,17 @@ export default {
 
   .sidebar-left {
     grid-area: sbl;
+    background-color: #686868;
   }
 
   .content {
-    background-color:#D6D6D6;
     grid-area: content;
-    min-height: 500px;
+    min-height: 90vh;
   }
 
   .sidebar-right {
     grid-area: sbr;
+    background-color: #686868;
   }
 
   .footer {

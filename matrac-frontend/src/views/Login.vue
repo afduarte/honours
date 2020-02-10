@@ -16,7 +16,8 @@ export default {
     };
   },
   methods: {
-    ...mapActions('app', ['login', 'error']),
+    ...mapActions('app', ['error']),
+    ...mapActions('user', ['login']),
     async submit(evt) {
       evt.preventDefault();
       evt.stopPropagation();

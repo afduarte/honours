@@ -2,14 +2,16 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import { ls } from '@/utils';
 import app from './app';
+import user from './user';
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   actions: {
     async initialise({ dispatch, getters }) {
-      if (getters['app/getToken']) {
-        await dispatch('app/login');
+      const token = getters['user/getToken'];
+      if (token) {
+        await dispatch('user/login', token);
       } else {
         const urlToken = new URLSearchParams(window.location.search).get('pin');
         if (urlToken) {
@@ -22,5 +24,6 @@ export default new Vuex.Store({
   },
   modules: {
     app,
+    user,
   },
 });
