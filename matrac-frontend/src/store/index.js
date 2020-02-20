@@ -4,6 +4,7 @@ import { ls } from '@/utils';
 import app from './app';
 import user from './user';
 import project from './project';
+import dataset from './dataset';
 
 Vue.use(Vuex);
 
@@ -27,5 +28,6 @@ export default new Vuex.Store({
     app,
     user,
     project,
+    dataset,
   },
 });

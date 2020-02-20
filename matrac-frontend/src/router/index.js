@@ -28,6 +28,11 @@ const routes = [
     name: 'Manage Projects',
     component: () => import(/* webpackChunkName: "admin/manage-projects" */ '../views/Admin/ManageProjects/Index.vue'),
   },
+  {
+    path: '/admin/manage-datasets',
+    name: 'Manage Datasets',
+    component: () => import(/* webpackChunkName: "admin/manage-datasets" */ '../views/Admin/ManageDatasets/Index.vue'),
+  },
 ];
 
 const router = new VueRouter({

@@ -1,13 +1,12 @@
 import Vue from 'vue';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { faUsers } from '@fortawesome/free-solid-svg-icons';
+import { faUsers, faArchive, faCog } from '@fortawesome/free-solid-svg-icons';
 import App from './App.vue';
 import router from './router';
 import store from './store';
 
-
-library.add(faUsers);
+library.add(faUsers, faArchive, faCog);
 
 Vue.component('fa-icon', FontAwesomeIcon);
 

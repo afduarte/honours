@@ -1,7 +1,11 @@
 <template lang="pug">
   .admin
-    square-btn(text="Manage Users", icon="users",@click="$router.push('/admin/manage-users')")
-    square-btn(text="Manage Projects", icon="cog",@click="$router.push('/admin/manage-projects')")
+    router-link(to="/admin/manage-users")
+      square-btn(text="Manage Users", icon="users")
+    router-link(to="/admin/manage-projects")
+      square-btn(text="Manage Projects", icon="cog")
+    router-link(to="/admin/manage-datasets")
+      square-btn(text="Manage Datasets", icon="archive")
 </template>
 
 <script>
