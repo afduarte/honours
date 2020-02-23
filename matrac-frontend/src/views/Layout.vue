@@ -5,15 +5,26 @@
         router-link(to="/") Home
         router-link(to="/admin") Administration
     .sidebar-left(@click="toggleSidebar('left')")
+      template(v-if="sidebarL")
+        .inner
+          p this is the left sidebar
+      .arrow
+        fa-icon(:icon="getArrow('l')")
     .content
       router-view
     .sidebar-right(@click="toggleSidebar('right')")
+      .arrow
+        fa-icon(:icon="getArrow('r')")
+      template(v-if="sidebarR")
+        .inner
+          p this is the right sidebar
     .footer
 
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex';
+import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 
 export default {
   name: 'layout',
@@ -26,6 +37,18 @@ export default {
         sblr: this.sidebarL && this.sidebarR,
       };
     },
+    getArrow() {
+      return (side) => {
+        switch (side) {
+          case 'l':
+            return this.sidebarL ? faAngleLeft : faAngleRight;
+          case 'r':
+            return this.sidebarR ? faAngleRight : faAngleLeft;
+          default:
+            return null;
+        }
+      };
+    },
   },
   methods: {
     ...mapActions('app', ['toggleSidebar']),
@@ -34,22 +57,22 @@ export default {
 </script>
 <style lang="scss" scoped>
 .layout {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #3F247A;
+  color: #3f247a;
   transition: 1s;
   display: grid;
   grid-template-columns: 1fr 82fr 1fr;
-  &.sbl{
+  &.sbl {
     transition: 1s;
     grid-template-columns: 12fr 71fr 1fr;
   }
-  &.sbr{
+  &.sbr {
     transition: 1s;
     grid-template-columns: 1fr 71fr 12fr;
   }
-  &.sblr{
+  &.sblr {
     transition: 1s;
     grid-template-columns: 12fr 60fr 12fr;
   }
@@ -61,28 +84,41 @@ export default {
   .header {
     grid-area: header;
     box-shadow: -1px 1px 3px 1px #d6d6d6;
-    background-color: #686868;
     .nav {
       padding: 30px;
 
       a {
         font-weight: bold;
-        color: #3F247A;
+        color: #3f247a;
         padding: 10px;
         margin: 5px;
         border-radius: 5px;
-        background-color: #D6D6D6;
+        background-color: #d6d6d6;
 
         &.router-link-exact-active {
-          color: #D583E9;
+          color: #d583e9;
         }
       }
+    }
+  }
+  .sidebar-left,
+  .sidebar-right {
+    display: flex;
+    flex-direction: row;
+    .inner{
+      width:90%;
+    }
+    .arrow {
+      align-self: center;
+      padding: 5px;
+      font-size: 2em;
     }
   }
 
   .sidebar-left {
     grid-area: sbl;
-    background-color: #686868;
+    box-shadow: 3px 3px 3px 1px #d6d6d6;
+    .arrow {text-align: right;}
   }
 
   .content {
@@ -92,7 +128,8 @@ export default {
 
   .sidebar-right {
     grid-area: sbr;
-    background-color: #686868;
+    box-shadow: -3px 3px 3px 1px #d6d6d6;
+    .arrow {text-align: left;}
   }
 
   .footer {
