@@ -45,7 +45,4 @@ export default {
   SECONDARY: #D6D6D6
   SECONDARY-DARKER: #686868
  */
-body{
-  background-color: #D6D6D6;
-}
 </style>
