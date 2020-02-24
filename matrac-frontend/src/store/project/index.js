@@ -36,6 +36,17 @@ export default {
         dispatch('app/loading', false, { root: true });
       }
     },
+    async mapDatasetToProject({ dispatch }, { dataset, project }) {
+      dispatch('app/loading', true, { root: true });
+      try {
+        await api.put(`/dataset/datamap/${dataset}/${encodeURIComponent(project)}`);
+        await dispatch('fetchProjects');
+      } catch (_) {
+        dispatch('app/error', { message: `Could not map dataset ${dataset} to project ${project}` }, { root: true });
+      } finally {
+        dispatch('app/loading', false, { root: true });
+      }
+    },
   },
   getters: {},
 };

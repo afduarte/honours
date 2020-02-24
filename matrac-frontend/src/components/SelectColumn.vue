@@ -24,7 +24,7 @@ export default {
   },
   computed: {
     valueName() {
-      if (!this.value) return 'None';
+      if (!this.value) return 'None ⌄';
       return this.options[this.value];
     },
   },
@@ -39,8 +39,16 @@ export default {
   .container{
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
     .text{
+      margin-left: 5px;
+    }
+    .select {
+      cursor: pointer;
       margin-right: 5px;
+      border: 1px solid #333333;
+      padding: 5px;
+      border-radius: 10px;
     }
   }
 </style>

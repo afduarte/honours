@@ -33,6 +33,23 @@ const routes = [
     name: 'Manage Datasets',
     component: () => import(/* webpackChunkName: "admin/manage-datasets" */ '../views/Admin/ManageDatasets/Index.vue'),
   },
+  {
+    path: '/admin/project-wizard',
+    name: 'New Project Wizard',
+    component: () => import(/* webpackChunkName: "admin/project-wizard" */ '../views/Admin/ProjectWizard/Index.vue'),
+    children: [
+      {
+        path: 'create-project',
+        name: 'Create Project',
+        component: () => import(/* webpackChunkName: "admin/project-wizard" */ '../views/Admin/ProjectWizard/Steps/One.vue'),
+      },
+      {
+        path: 'link-dataset',
+        name: 'Link Dataset',
+        component: () => import(/* webpackChunkName: "admin/project-wizard" */ '../views/Admin/ProjectWizard/Steps/Two.vue'),
+      },
+    ],
+  },
 ];
 
 const router = new VueRouter({

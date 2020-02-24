@@ -1,5 +1,7 @@
 <template lang="pug">
   .admin
+    router-link(to="/admin/project-wizard")
+      square-btn(text="New Project Wizard", icon="magic")
     router-link(to="/admin/manage-users")
       square-btn(text="Manage Users", icon="users")
     router-link(to="/admin/manage-projects")
@@ -20,5 +22,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+  .admin {
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: repeat(4, 1fr)
+  }
 </style>

@@ -103,6 +103,7 @@ export default {
   }
   .sidebar-left,
   .sidebar-right {
+    padding: 5px;
     display: flex;
     flex-direction: row;
     .inner{
@@ -122,6 +123,7 @@ export default {
   }
 
   .content {
+    padding: 5px;
     grid-area: content;
     min-height: 90vh;
   }

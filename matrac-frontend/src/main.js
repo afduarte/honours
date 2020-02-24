@@ -2,7 +2,7 @@ import Vue from 'vue';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import {
-  faUsers, faArchive, faCog, faAngleRight, faAngleLeft,
+  faUsers, faArchive, faCog, faAngleRight, faAngleLeft, faMagic,
 } from '@fortawesome/free-solid-svg-icons';
 import App from './App.vue';
 import router from './router';
@@ -14,6 +14,7 @@ const icons = [
   faCog,
   faAngleRight,
   faAngleLeft,
+  faMagic,
 ];
 
 library.add(...icons);
