@@ -40,15 +40,12 @@ export default {
     ...mapActions('project', ['fetchProjects', 'newProject', 'mapDatasetToProject']),
     ...mapActions('dataset', ['fetchDatasets']),
     ...mapActions('app', ['error']),
-    sendingEvent(file, xhr, formData) {
-      formData.append('datasetID', this.projectList[this.upload].Name);
-    },
     async sendForm({ name, tags }) {
       await this.newProject({ name, tags });
     },
     async linkDataset(dataset, project) {
       await this.mapDatasetToProject({ project: project.Name, dataset: dataset.ID });
-      this.upload = null;
+      this.activeProject = null;
     },
   },
   async mounted() {
