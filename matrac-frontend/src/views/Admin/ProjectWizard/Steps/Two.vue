@@ -5,7 +5,7 @@
       :datasets="datasetList",
       :active="selectedDataset",
       @dataset-click="selectedDataset = selectedDataset === $event? null :$event")
-    button(@click="nextStep", :disabled="!selectedDataset") Link dataset
+    button(@click="linkExistingDataset", :disabled="!selectedDataset") Link dataset
 
     p Or create a new one
     dataset-form(:existing="datasetList", @submit="createDataset")
