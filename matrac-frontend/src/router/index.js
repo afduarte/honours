@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '../views/Home.vue';
+import { ls } from '@/utils';
 
 Vue.use(VueRouter);
 
@@ -9,6 +10,15 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home,
+  },
+  {
+    path: '/logout',
+    name: 'Logout',
+    beforeEnter: () => {
+      ls.removeItem('token');
+      window.location.search = '';
+      window.location.replace('/');
+    },
   },
   {
     path: '/admin',
@@ -47,6 +57,11 @@ const routes = [
         path: 'link-dataset',
         name: 'Link Dataset',
         component: () => import(/* webpackChunkName: "admin/project-wizard" */ '../views/Admin/ProjectWizard/Steps/Two.vue'),
+      },
+      {
+        path: 'link-users',
+        name: 'Link Users',
+        component: () => import(/* webpackChunkName: "admin/project-wizard" */ '../views/Admin/ProjectWizard/Steps/Three.vue'),
       },
     ],
   },

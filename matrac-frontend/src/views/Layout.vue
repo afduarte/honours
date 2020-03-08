@@ -4,6 +4,8 @@
       .nav
         router-link(to="/") Home
         router-link(to="/admin") Administration
+      .logout
+        router-link(to="/logout") Logout
     .sidebar-left(@click="toggleSidebar('left')")
       template(v-if="sidebarL")
         .inner
@@ -86,8 +88,11 @@ export default {
     box-shadow: -1px 1px 3px 1px #d6d6d6;
     .nav {
       padding: 30px;
-
-      a {
+    }
+    .logout{
+      grid-area: logout;
+    }
+    a {
         font-weight: bold;
         color: #3f247a;
         padding: 10px;
@@ -99,7 +104,6 @@ export default {
           color: #d583e9;
         }
       }
-    }
   }
   .sidebar-left,
   .sidebar-right {

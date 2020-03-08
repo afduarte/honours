@@ -55,6 +55,16 @@ export default {
         dispatch('app/loading', false, { root: true });
       }
     },
+    async addUserToProject({ dispatch }, { project, user }) {
+      dispatch('app/loading', true, { root: true });
+      try {
+        await api.put(`/session/user/add/${encodeURIComponent(project)}?pin=${user}`);
+      } catch (_) {
+        dispatch('app/error', { message: `Could not map user ${user} to project ${project}` }, { root: true });
+      } finally {
+        dispatch('app/loading', false, { root: true });
+      }
+    },
   },
   getters: {
     userLoggedIn(state) {

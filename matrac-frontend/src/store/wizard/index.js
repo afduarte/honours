@@ -10,17 +10,23 @@ export default {
     setProject(state, value) {
       state.project = value;
     },
-    setDatse(state, value) {
+    setDataset(state, value) {
       state.dataset = value;
     },
   },
   actions: {
-    setProject({ commit }, project) {
+    setActiveProject({ commit }, project) {
       commit('setProject', project);
+    },
+    setActiveDataset({ commit }, dataset) {
+      commit('setDataset', dataset);
     },
   },
   getters: {
     activeProject(state) {
+      return state.project;
+    },
+    activeDataset(state) {
       return state.project;
     },
   },
