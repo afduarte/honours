@@ -9,7 +9,7 @@
     .sidebar-left(@click="toggleSidebar('left')")
       template(v-if="sidebarL")
         .inner
-          p this is the left sidebar
+          SideBarSwitcher
       .arrow
         fa-icon(:icon="getArrow('l')")
     .content
@@ -27,9 +27,11 @@
 <script>
 import { mapState, mapActions } from 'vuex';
 import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
+import SideBarSwitcher from './Sidebar/Switcher.vue';
 
 export default {
   name: 'layout',
+  components: { SideBarSwitcher },
   computed: {
     ...mapState('app', ['sidebarL', 'sidebarR']),
     sidebarClasses() {
@@ -54,6 +56,9 @@ export default {
   },
   methods: {
     ...mapActions('app', ['toggleSidebar']),
+  },
+  mounted() {
+    console.log(this.$route);
   },
 };
 </script>
@@ -86,12 +91,10 @@ export default {
   .header {
     grid-area: header;
     box-shadow: -1px 1px 3px 1px #d6d6d6;
-    .nav {
-      padding: 30px;
-    }
-    .logout{
-      grid-area: logout;
-    }
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 30px 60px;
     a {
         font-weight: bold;
         color: #3f247a;

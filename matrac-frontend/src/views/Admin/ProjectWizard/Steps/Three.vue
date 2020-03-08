@@ -22,14 +22,15 @@ export default {
     ...mapGetters('wizard', ['activeProject']),
   },
   methods: {
+    ...mapActions('project', ['fetchProjects']),
     ...mapActions('user', ['fetchUsers', 'generateUsers', 'addUserToProject']),
     ...mapActions('app', ['error']),
     async addUser(user) {
       await this.addUserToProject({
         project: this.activeProject.Name,
         user: user.Pin,
-
       });
+      await this.fetchProjects();
     },
     async genUsers(howMany) {
       await this.generateUsers(howMany);
@@ -37,7 +38,10 @@ export default {
     },
   },
   async mounted() {
-    await this.fetchUsers();
+    await Promise.all([
+      this.fetchUsers(),
+      this.fetchProjects(),
+    ]);
   },
 };
 </script>

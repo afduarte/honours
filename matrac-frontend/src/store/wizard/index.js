@@ -16,18 +16,18 @@ export default {
   },
   actions: {
     setActiveProject({ commit }, project) {
-      commit('setProject', project);
+      commit('setProject', project.Name);
     },
     setActiveDataset({ commit }, dataset) {
-      commit('setDataset', dataset);
+      commit('setDataset', dataset.ID);
     },
   },
   getters: {
-    activeProject(state) {
-      return state.project;
+    activeProject(state, getters, rootState) {
+      return rootState.project.projectList.find(p => p.Name === state.project);
     },
-    activeDataset(state) {
-      return state.project;
+    activeDataset(state, getters, rootState) {
+      return rootState.dataset.datasetList.find(d => d.ID === state.dataset);
     },
   },
 };
