@@ -1,6 +1,6 @@
 <template lang="pug">
   .square(@click="$emit('click')")
-    fa-icon.icon(v-if="icon !== ''", :icon="icon")
+    fa-icon.icon(v-if="icon", :icon="icon")
     p {{text}}
 </template>
 

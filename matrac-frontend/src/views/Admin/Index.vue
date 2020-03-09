@@ -23,8 +23,9 @@ export default {
 
 <style lang="scss" scoped>
   .admin {
+    margin-top: 30px;
     display: grid;
-    grid-gap: 10px;
-    grid-template-columns: repeat(4, 1fr)
+    grid-gap: 30px;
+    grid-template-columns: repeat(2, 1fr)
   }
 </style>

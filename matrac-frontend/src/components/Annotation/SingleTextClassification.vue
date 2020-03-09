@@ -1,10 +1,16 @@
 <template lang="pug">
   .annotation
-    .target
-      p {{target}}
-    .context
-      p Context:
-      p {{context}}
+    .box
+      .target
+        p {{target}}
+      .context
+        p.title Context:
+        p {{context}}
+    .options
+      .option(v-for="(o,i) in options", @click="clicked(o)")
+        p {{o}}
+        kbd(v-if="keys[i]") {{keys[i]}}
+
 </template>
 <script>
 export default {
@@ -14,8 +20,99 @@ export default {
     target: { type: String },
     context: { type: String },
   },
+  data() {
+    return {
+      keys: ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'z', 'x', 'c', 'v', 'b', 'n', 'm'],
+    };
+  },
+  methods: {
+    clicked(option) {
+      this.$emit('submit', [option]);
+      this.$emit('next');
+    },
+    keyed(evt) {
+      const idx = this.keys.findIndex(k => k === evt.key);
+      if (idx < 0) return; // this ignores all keys that are not in the array
+      const option = this.options[idx];
+      this.clicked(option);
+    },
+  },
+  mounted() {
+    document.addEventListener('keypress', this.keyed);
+  },
+  beforeDestroy() {
+    document.removeEventListener('keypress', this.keyed);
+  },
 };
 </script>
 <style lang="scss" scoped>
-
+.annotation {
+  display: grid;
+  height: 100vh;
+  background-color: #333333;
+  grid-template-columns: 1fr 2fr 10fr 2fr 1fr;
+  grid-template-rows: 1fr 5fr 3fr 3fr;
+  .box {
+    background-color: #ffffff;
+    margin: 20px;
+    box-shadow: -3px 3px 20px 10px #00000050;
+    border-radius: 10px;
+    grid-column: 3;
+    grid-row: 2;
+    text-align: center;
+    .target {
+      font-size: 3em;
+    }
+    .context {
+      font-size: 2em;
+      .title {
+        font-size: 0.8em;
+      }
+    }
+  }
+  .options {
+    margin-top: 20px;
+    grid-column-start: 2;
+    grid-column-end: 5;
+    grid-row: 3;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    .option {
+      cursor: pointer;
+      margin: 10px;
+      font-size: 2em;
+      background-color: #ffffff;
+      padding: 20px;
+      border: 4px solid #333333;
+      border-radius: 10px;
+      box-shadow: -3px 3px 5px 3px #00000050;
+      &:hover {
+        box-shadow: -3px 3px 5px 3px #5b34af50;
+        border-color: #5b34af;
+      }
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      p {
+        margin-block-end: 5px;
+        margin-block-start: 0;
+      }
+      kbd {
+        max-width: 1.5em;
+        text-align: center;
+        margin: 0 auto;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        padding: 0.1em 0.5em;
+        margin: 0 0.2em;
+        box-shadow: 0 1px 0px rgba(0, 0, 0, 0.2), 0 0 0 2px #d4d4d4 inset;
+        background-color: #cacaca;
+      }
+    }
+  }
+}
 </style>

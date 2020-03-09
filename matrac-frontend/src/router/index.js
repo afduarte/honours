@@ -1,7 +1,9 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '../views/Home.vue';
+import Annotation from '../views/Annotation.vue';
 import { ls } from '@/utils';
+import store from '@/store';
 
 Vue.use(VueRouter);
 
@@ -10,6 +12,19 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home,
+  },
+  {
+    path: '/annotate/:session',
+    name: 'Annotate',
+    component: Annotation,
+    props: true,
+    async beforeEnter(to, from, next) {
+      const proj = store.state.project.projectList.find(p => p.Name === to.params.session);
+      if (!proj) {
+        await store.dispatch('project/fetchProjects');
+      }
+      next();
+    },
   },
   {
     path: '/logout',

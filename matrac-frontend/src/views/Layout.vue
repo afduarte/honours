@@ -1,14 +1,11 @@
 <template lang="pug">
   .layout(:class="sidebarClasses")
-    .header
-      .nav
-        router-link(to="/") Home
-        router-link(to="/admin") Administration
-      .logout
-        router-link(to="/logout") Logout
     .sidebar-left(@click="toggleSidebar('left')")
       template(v-if="sidebarL")
         .inner
+          .nav
+            router-link(to="/") Home
+            router-link(to="/admin") Administration
           SideBarSwitcher
       .arrow
         fa-icon(:icon="getArrow('l')")
@@ -19,7 +16,8 @@
         fa-icon(:icon="getArrow('r')")
       template(v-if="sidebarR")
         .inner
-          p this is the right sidebar
+          .nav
+            router-link(to="/logout") Logout
     .footer
 
 </template>
@@ -84,17 +82,21 @@ export default {
     grid-template-columns: 12fr 60fr 12fr;
   }
   grid-template-areas:
-    "header header header"
+    // "header header header"
     "sbl content sbr"
     "sbl footer sbr";
 
   .header {
     grid-area: header;
     box-shadow: -1px 1px 3px 1px #d6d6d6;
+
+    padding: 30px 60px;
+  }
+  .nav{
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    padding: 30px 60px;
+    justify-content: space-around;
+    margin-top: 20px;
     a {
         font-weight: bold;
         color: #3f247a;
@@ -113,6 +115,7 @@ export default {
     padding: 5px;
     display: flex;
     flex-direction: row;
+    z-index: 3;
     .inner{
       width:90%;
     }
@@ -125,19 +128,21 @@ export default {
 
   .sidebar-left {
     grid-area: sbl;
-    box-shadow: 3px 3px 3px 1px #d6d6d6;
+    // box-shadow: 3px 3px 3px 1px #d6d6d6;
+    border-right: 2px solid #333333;
     .arrow {text-align: right;}
   }
 
   .content {
-    padding: 5px;
+    z-index:1;
     grid-area: content;
-    min-height: 90vh;
+    min-height: 100vh;
   }
 
   .sidebar-right {
     grid-area: sbr;
-    box-shadow: -3px 3px 3px 1px #d6d6d6;
+    // box-shadow: -3px 3px 3px 1px #d6d6d6;
+    border-left: 2px solid #333333;
     .arrow {text-align: left;}
   }
 

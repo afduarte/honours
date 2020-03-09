@@ -6,6 +6,7 @@ import user from './user';
 import project from './project';
 import dataset from './dataset';
 import wizard from './wizard';
+import utterance from './utterance';
 
 Vue.use(Vuex);
 
@@ -31,5 +32,6 @@ export default new Vuex.Store({
     project,
     dataset,
     wizard,
+    utterance,
   },
 });
