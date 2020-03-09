@@ -47,6 +47,17 @@ export default {
         dispatch('app/loading', false, { root: true });
       }
     },
+    async updateAnnotationType({ dispatch }, { project, annotationType }) {
+      dispatch('app/loading', true, { root: true });
+      try {
+        await api.put(`/session/update/type/${encodeURIComponent(project)}/${annotationType}`);
+        await dispatch('fetchProjects');
+      } catch (_) {
+        dispatch('app/error', { message: `Could not update session type to ${annotationType} on project ${project}` }, { root: true });
+      } finally {
+        dispatch('app/loading', false, { root: true });
+      }
+    },
   },
   getters: {},
 };

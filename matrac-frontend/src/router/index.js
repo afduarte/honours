@@ -63,6 +63,16 @@ const routes = [
         name: 'Link Users',
         component: () => import(/* webpackChunkName: "admin/project-wizard" */ '../views/Admin/ProjectWizard/Steps/Three.vue'),
       },
+      {
+        path: 'project-type',
+        name: 'Select Project Type',
+        component: () => import(/* webpackChunkName: "admin/project-wizard" */ '../views/Admin/ProjectWizard/Steps/Four.vue'),
+      },
+      {
+        path: 'done',
+        name: 'Done!',
+        component: () => import(/* webpackChunkName: "admin/project-wizard" */ '../views/Admin/ProjectWizard/Steps/Five.vue'),
+      },
     ],
   },
 ];

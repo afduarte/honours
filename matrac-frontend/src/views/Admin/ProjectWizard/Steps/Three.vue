@@ -1,8 +1,9 @@
 <template lang="pug">
   .manage-users
-    user-list(:users="userList", @user-click="addUser")
-
-    user-form(@submit="genUsers")
+    user-list(:users="userList", :selected="this.activeProject.Users", @user-click="addUser")
+    div
+      user-form(@submit="genUsers")
+      button(@click="nextStep") Next Step
 </template>
 
 <script>
@@ -13,10 +14,6 @@ import UserForm from '@/components/UserForm.vue';
 export default {
   components: { UserList, UserForm },
   name: 'LinkUsers',
-  data() {
-    return {
-    };
-  },
   computed: {
     ...mapState('user', ['userList']),
     ...mapGetters('wizard', ['activeProject']),
@@ -36,6 +33,9 @@ export default {
       await this.generateUsers(howMany);
       await this.fetchUsers();
     },
+    nextStep() {
+      this.$router.push('/admin/project-wizard/project-type');
+    },
   },
   async mounted() {
     await Promise.all([
@@ -48,7 +48,11 @@ export default {
 
 <style lang="scss" scoped>
 .manage-users {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  gap: 20px;
+  grid-template-columns: 8fr 1fr;
+  div button {
+    margin-top: 50px;
+  }
 }
 </style>
