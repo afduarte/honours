@@ -22,7 +22,7 @@ export default {
       evt.preventDefault();
       evt.stopPropagation();
       try {
-        await this.login(this.pin);
+        await this.login(this.pin.replace(/\s/, ''));
         this.pin = '';
       } catch (e) {
         if (e.response && e.response.Message) {

@@ -4,8 +4,9 @@
       template(v-if="sidebarL")
         .inner
           .nav
-            router-link(to="/") Home
-            router-link(to="/admin") Administration
+            router-link(to="/", @click.native="$event.stopImmediatePropagation()") Home
+            router-link(to="/admin", v-if="user && user.Role ==='AdminRole'",
+              @click.native="$event.stopImmediatePropagation()") Administration
           SideBarSwitcher
       .arrow
         fa-icon(:icon="getArrow('l')")
@@ -17,7 +18,7 @@
       template(v-if="sidebarR")
         .inner
           .nav
-            router-link(to="/logout") Logout
+            router-link(to="/logout", @click.native="$event.stopImmediatePropagation()") Logout
     .footer
 
 </template>
@@ -32,6 +33,7 @@ export default {
   components: { SideBarSwitcher },
   computed: {
     ...mapState('app', ['sidebarL', 'sidebarR']),
+    ...mapState('user', ['user']),
     sidebarClasses() {
       return {
         sbl: this.sidebarL && !this.sidebarR,
@@ -92,23 +94,23 @@ export default {
 
     padding: 30px 60px;
   }
-  .nav{
+  .nav {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     margin-top: 20px;
     a {
-        font-weight: bold;
-        color: #3f247a;
-        padding: 10px;
-        margin: 5px;
-        border-radius: 5px;
-        background-color: #d6d6d6;
+      font-weight: bold;
+      color: #3f247a;
+      padding: 10px;
+      margin: 5px;
+      border-radius: 5px;
+      background-color: #d6d6d6;
 
-        &.router-link-exact-active {
-          color: #d583e9;
-        }
+      &.router-link-exact-active {
+        color: #d583e9;
       }
+    }
   }
   .sidebar-left,
   .sidebar-right {
@@ -116,8 +118,8 @@ export default {
     display: flex;
     flex-direction: row;
     z-index: 3;
-    .inner{
-      width:90%;
+    .inner {
+      width: 90%;
     }
     .arrow {
       align-self: center;
@@ -130,11 +132,13 @@ export default {
     grid-area: sbl;
     // box-shadow: 3px 3px 3px 1px #d6d6d6;
     border-right: 2px solid #333333;
-    .arrow {text-align: right;}
+    .arrow {
+      text-align: right;
+    }
   }
 
   .content {
-    z-index:1;
+    z-index: 1;
     grid-area: content;
     min-height: 100vh;
   }
@@ -143,7 +147,9 @@ export default {
     grid-area: sbr;
     // box-shadow: -3px 3px 3px 1px #d6d6d6;
     border-left: 2px solid #333333;
-    .arrow {text-align: left;}
+    .arrow {
+      text-align: left;
+    }
   }
 
   .footer {

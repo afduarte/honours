@@ -3,7 +3,7 @@
     .user.header
       p Pin
       p Role
-      p Selected
+      p {{thirdRowText}}
     .user(v-for="u in users", @click="$emit('user-click',u)")
       p {{u.Pin | pin}}
       p {{u.Role}}
@@ -15,7 +15,8 @@ export default {
   name: 'user-list',
   props: {
     users: { type: Array },
-    selected: { type: Array },
+    selected: { type: Array, required: false, default: () => ([]) },
+    thirdRowText: { type: String, required: false, default: () => 'Selected' },
   },
   filters: {
     pin(val) {

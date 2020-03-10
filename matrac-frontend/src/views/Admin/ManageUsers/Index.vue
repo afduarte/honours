@@ -1,6 +1,6 @@
 <template lang="pug">
   .manage-users
-    user-list(:users="userList")
+    user-list(:users="userList", :selected="[user]",thirdRowText="Logged in")
     user-form(@submit="sendForm")
 </template>
 
@@ -18,7 +18,7 @@ export default {
     };
   },
   computed: {
-    ...mapState('user', ['userList']),
+    ...mapState('user', ['userList', 'user']),
   },
   methods: {
     ...mapActions('user', ['fetchUsers', 'generateUsers']),

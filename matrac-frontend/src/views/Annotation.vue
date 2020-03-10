@@ -20,12 +20,11 @@ export default {
   data() {
     return {
       ac: anComponents,
-      project: null,
     };
   },
   computed: {
     ...mapState('project', ['projectList']),
-    ...mapState('utterance', ['utteranceList', 'current']),
+    ...mapState('utterance', ['utteranceList', 'current', 'project']),
     opts() {
       if (!this.project) return [];
       return this.project.Options.split(',');
@@ -36,15 +35,19 @@ export default {
     },
   },
   methods: {
-    ...mapActions('utterance', ['fetchUtterances', 'submitUtterance']),
-    submitted(evt) {
-      console.log(evt);
-      this.submitUtterance();
+    ...mapActions('utterance', ['fetchUtterances', 'setProject', 'submitUtterance']),
+    async submitted(tags) {
+      await this.submitUtterance({
+        project: this.project.Name,
+        tags: tags.join(','),
+        utterance: this.currentUtterance.ID,
+      });
     },
   },
   async mounted() {
-    this.project = this.projectList.find(p => p.Name === this.session);
-    await this.fetchUtterances(this.project.Name);
+    const pr = this.projectList.find(p => p.Name === this.session);
+    await this.setProject(pr);
+    await this.fetchUtterances();
   },
 };
 </script>

@@ -3,8 +3,10 @@
     .logo
       img(alt="M-ATRAC", src="../assets/matrac-logo.svg", width="200px")
     h2 Your Projects
+    h3(v-if="!projectList.length") It seems like you've not been assigned to any project yet 😢
     .projects
-      router-link(v-for="p in projectList", :to="'/annotate/'+encodeURIComponent(p.Name)")
+      router-link(v-for="p in projectList", :key="p.Name",
+        :to="'/annotate/'+encodeURIComponent(p.Name)")
         .project
           h3 {{p.Name}}
           p Type:
@@ -38,7 +40,7 @@ export default {
 <style lang="scss" scoped>
 .home {
   padding: 10px;
-  h2 {
+  h2, h3 {
     text-align: center;
   }
   display: grid;

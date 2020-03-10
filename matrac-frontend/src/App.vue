@@ -1,6 +1,7 @@
 <template lang="pug">
   #app
-    p(v-if="loading") Loading...
+    .loading(v-if="loading")
+      fa-icon(icon="spinner", size="4x", :spin="true")
     template(v-if="userLoggedIn")
       Layout
     modal(v-else)
@@ -30,13 +31,17 @@ export default {
     ...mapState('user', ['user']),
     ...mapGetters('user', ['userLoggedIn']),
   },
-  mounted() {
-
-  },
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
+.loading{
+  position:absolute;
+  width: 100%;
+  text-align:center;
+  top: 50px;
+  color: #5b34af;
+}
 /*
   COLOUR PALLETE
   PRIMARY: #3F247A
