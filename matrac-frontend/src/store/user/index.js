@@ -23,12 +23,14 @@ export default {
         dispatch('app/loading', true, { root: true });
         const { data } = await api.post('/user/login', qs.stringify({ pin }));
         if (!data.Pin || !data.Role) {
-          throw new Error('Invalid login');
+          throw new Error();
         }
         commit('setUser', data);
         ls.setItem('token', data.Pin);
       } catch (_) {
         commit('setUser', {});
+        ls.removeItem('token');
+        dispatch('app/error', { message: 'Invalid Login' }, { root: true });
       } finally {
         dispatch('app/loading', false, { root: true });
       }

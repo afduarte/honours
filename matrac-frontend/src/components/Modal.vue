@@ -18,9 +18,11 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
+<style lang="scss">
 .mask{
  position: absolute;
+ top: 0;
+ left: 0;
  width: 100vw;
  height: 100vh;
  background-color: hsla(0, 0%, 20%, 0.5);
@@ -28,6 +30,7 @@ export default {
  padding: 0;
  display: flex;
  justify-content: center;
+ z-index: 100;
  .modal{
    margin-top:10vh;
    max-height: 20vh;
@@ -36,6 +39,7 @@ export default {
    display: flex;
    flex-direction: column;
    background-color: #ffffff;
+   z-index: 101;
  }
 }
 </style>

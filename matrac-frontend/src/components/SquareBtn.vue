@@ -16,18 +16,12 @@ export default {
 
 <style lang="scss" scoped>
 .square {
-  transition: 300ms;
   text-align: center;
   padding: 20px;
-  border: 3px solid #333333;
-  border-radius: 5px;
+  height: 100%;
   cursor: pointer;
   .icon {
     font-size: 3em;
-  }
-  &:hover {
-    background-color: #d6d6d6;
-    color: #d583e9;
   }
 }
 </style>

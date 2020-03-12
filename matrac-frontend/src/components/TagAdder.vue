@@ -4,12 +4,13 @@
       template(v-for="t in tags")
         .tag {{t}}
     template(v-if="adding")
-      input(v-model="editing", type="text")
-      button(@click="addTag") Add
+      .adding
+        input(v-model="editing", type="text")
+        button(@click="addTag") Add
     template(v-else)
-      button(@click="adding = true") +
-    template(v-if="this.tags.length")
-      button(@click="tags = []") Clear
+      .btns
+        button(@click="adding = true") +
+        button(v-if="this.tags.length", @click="tags = []") Clear
 </template>
 <script>
 export default {
@@ -37,11 +38,23 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.tags{
-  .tag{
-    padding: 5px;
-    border: 2px solid #333333;
+.tag-adder {
+  display: flex;
+  flex-direction: column;
+  button {
+    margin: 5px;
+  }
+  .tags {
+    display: flex;
+    flex-direction: row;
+    .tag {
+      padding: 10px;
+      border-radius: 5px;
+      color: #ffffff;
+      background-color: #5b34af;
+      border: 2px solid #5b34af;
+      margin: 5px;
+    }
   }
 }
-
 </style>

@@ -1,25 +1,21 @@
 <template lang="pug">
   .layout(:class="sidebarClasses")
     .sidebar-left(@click="toggleSidebar('left')")
-      template(v-if="sidebarL")
-        .inner
-          .nav
-            router-link(to="/", @click.native="$event.stopImmediatePropagation()") Home
-            router-link(to="/admin", v-if="user && user.Role ==='AdminRole'",
-              @click.native="$event.stopImmediatePropagation()") Administration
-          SideBarSwitcher
+      .nav(:class="{ hidden:!sidebarL }")
+        .logo
+          img(alt="M-ATRAC", src="../assets/matrac-logo.svg", width="150px")
+        router-link.home(to="/", @click.native="$event.stopImmediatePropagation()") Annotate
+        router-link(to="/admin", v-if="user && user.Role ==='AdminRole'",
+          @click.native="$event.stopImmediatePropagation()") Manage
+      .inner(:class="{ hidden:!sidebarL }")
+        SideBarSwitcher
       .arrow
-        fa-icon(:icon="getArrow('l')")
+        div
+          fa-icon.icon(:icon="getArrow('l')")
+      .logout(:class="{ hidden:!sidebarL }")
+        router-link(to="/logout", @click.native="$event.stopImmediatePropagation()") Logout
     .content
       router-view
-    .sidebar-right(@click="toggleSidebar('right')")
-      .arrow
-        fa-icon(:icon="getArrow('r')")
-      template(v-if="sidebarR")
-        .inner
-          .nav
-            router-link(to="/logout", @click.native="$event.stopImmediatePropagation()") Logout
-    .footer
 
 </template>
 
@@ -36,9 +32,7 @@ export default {
     ...mapState('user', ['user']),
     sidebarClasses() {
       return {
-        sbl: this.sidebarL && !this.sidebarR,
-        sbr: this.sidebarR && !this.sidebarL,
-        sblr: this.sidebarL && this.sidebarR,
+        sbl: this.sidebarL,
       };
     },
     getArrow() {
@@ -57,103 +51,78 @@ export default {
   methods: {
     ...mapActions('app', ['toggleSidebar']),
   },
-  mounted() {
-    console.log(this.$route);
-  },
 };
 </script>
 <style lang="scss" scoped>
 .layout {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: #3f247a;
   transition: 1s;
   display: grid;
-  grid-template-columns: 1fr 82fr 1fr;
+  grid-template-columns: 2fr 80fr;
   &.sbl {
     transition: 1s;
-    grid-template-columns: 12fr 71fr 1fr;
+    grid-template-columns: 12fr 70fr;
   }
-  &.sbr {
-    transition: 1s;
-    grid-template-columns: 1fr 71fr 12fr;
-  }
-  &.sblr {
-    transition: 1s;
-    grid-template-columns: 12fr 60fr 12fr;
-  }
-  grid-template-areas:
-    // "header header header"
-    "sbl content sbr"
-    "sbl footer sbr";
-
-  .header {
-    grid-area: header;
-    box-shadow: -1px 1px 3px 1px #d6d6d6;
-
-    padding: 30px 60px;
-  }
-  .nav {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    margin-top: 20px;
-    a {
-      font-weight: bold;
-      color: #3f247a;
-      padding: 10px;
-      margin: 5px;
-      border-radius: 5px;
-      background-color: #d6d6d6;
-
-      &.router-link-exact-active {
-        color: #d583e9;
+  grid-template-areas: "sbl content";
+  .sidebar-left {
+    grid-area: sbl;
+    padding-left: 20px;
+    display: grid;
+    grid-template-columns: 9fr 1fr;
+    grid-template-rows: 1fr 2fr 0.5fr;
+    .logo {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+    }
+    .nav, .logout {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding-top: 10px;
+      grid-column: 1;
+      grid-row: 1;
+      padding-left: 15px;
+      a {
+        margin-bottom: 10px;
+        text-align: center;
       }
     }
-  }
-  .sidebar-left,
-  .sidebar-right {
-    padding: 5px;
-    display: flex;
-    flex-direction: row;
-    z-index: 3;
+    .logout {
+      grid-row: 3;
+    }
     .inner {
-      width: 90%;
+      transition: 1s;
+      grid-column: 1;
+      grid-row: 2;
+    }
+    .hidden {
+      width: 0;
+      display: none;
     }
     .arrow {
-      align-self: center;
+      text-align: right;
       padding: 5px;
       font-size: 2em;
+      grid-column: 2;
+      grid-row: 2;
+      display: flex;
+      flex-direction: row;
+      div {
+        align-self: center;
+      }
     }
   }
 
   .sidebar-left {
     grid-area: sbl;
-    // box-shadow: 3px 3px 3px 1px #d6d6d6;
+    box-shadow: 3px 3px 3px 1px #666666a1;
     border-right: 2px solid #333333;
-    .arrow {
-      text-align: right;
-    }
   }
 
   .content {
     z-index: 1;
     grid-area: content;
     min-height: 100vh;
-  }
-
-  .sidebar-right {
-    grid-area: sbr;
-    // box-shadow: -3px 3px 3px 1px #d6d6d6;
-    border-left: 2px solid #333333;
-    .arrow {
-      text-align: left;
-    }
-  }
-
-  .footer {
-    grid-area: footer;
   }
 }
 </style>

@@ -5,7 +5,8 @@
       p Name
       input(type="text", v-model="name")
     .file-input
-      input(type="file",@change="fileFieldChanged")
+      input#file(type="file",@change="fileFieldChanged")
+      label(for="file") Select file
     .preview
       button(v-for="(v,k) in files",@click="selectedFile=k") {{k}}
       template(v-if="selectedFile && previews[selectedFile]")
@@ -149,7 +150,28 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-
+.name {
+  margin-bottom: 15px;
+}
+.file-input {
+  label {
+    transition: 500ms;
+    border: 2px solid #333333;
+    border-radius: 5px;
+    background-color: white;
+    color: #333333;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    &:hover {
+      background-color: #333333;
+      color: #ffffff;
+    }
+  }
+  input {
+    display: none;
+  }
+}
 // Table styles
 // Heavily inspired on https://codepen.io/alico/pen/bpLgOL
 table {
