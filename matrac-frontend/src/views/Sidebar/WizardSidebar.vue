@@ -1,5 +1,10 @@
 <template lang="pug">
   .wizard-bar
+    .links
+      router-link(@click.native="$event.stopImmediatePropagation()",
+        to="/admin/project-wizard") New Project Wizard
+      router-link.back(@click.native="$event.stopImmediatePropagation()",
+        to="/admin") Exit Wizard
     .step(v-if="step")
       p Step {{step+1}}/{{routes.length}}
     .project(v-if="activeProject")
@@ -42,3 +47,14 @@ export default {
   },
 };
 </script>
+<style lang="scss" scoped>
+.links{
+  margin-top: 5px;
+  display: flex;
+  flex-direction: column;
+  a{
+    margin-left: 35px;
+    margin-bottom: 10px;
+  }
+}
+</style>

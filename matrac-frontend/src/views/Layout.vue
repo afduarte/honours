@@ -4,7 +4,7 @@
       .nav(:class="{ hidden:!sidebarL }")
         .logo
           img(alt="M-ATRAC", src="../assets/matrac-logo.svg", width="150px")
-        router-link.home(to="/", @click.native="$event.stopImmediatePropagation()") Annotate
+        router-link.home(to="/annotate", @click.native="$event.stopImmediatePropagation()") Annotate
         router-link(to="/admin", v-if="user && user.Role ==='AdminRole'",
           @click.native="$event.stopImmediatePropagation()") Manage
       .inner(:class="{ hidden:!sidebarL }")
@@ -122,7 +122,8 @@ export default {
   .content {
     z-index: 1;
     grid-area: content;
-    min-height: 100vh;
+    height: 100vh;
+    overflow-y: scroll;
   }
 }
 </style>

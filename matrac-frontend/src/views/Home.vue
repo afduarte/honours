@@ -5,7 +5,7 @@
     router-link(v-if="user.Role === 'AdminRole'", to="/admin/project-wizard") Create a new project
     .projects
       router-link(v-for="p in projectList", :key="p.Name",
-        :to="'/annotate/'+encodeURIComponent(p.Name)")
+        :to="'/annotate/project/'+encodeURIComponent(p.Name)")
         .project
           h3 {{p.Name}}
           p(v-if="ac[p.AnnotationType]") Type:

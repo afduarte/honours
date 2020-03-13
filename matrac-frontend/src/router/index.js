@@ -9,12 +9,12 @@ Vue.use(VueRouter);
 
 const routes = [
   {
-    path: '/',
-    name: 'Home',
+    path: '/annotate',
+    name: 'Annotation Projects',
     component: Home,
   },
   {
-    path: '/annotate/:session',
+    path: '/annotate/project/:session',
     name: 'Annotate',
     component: Annotation,
     props: true,
@@ -90,6 +90,7 @@ const routes = [
       },
     ],
   },
+  { path: '*', redirect: '/annotate' },
 ];
 
 const router = new VueRouter({

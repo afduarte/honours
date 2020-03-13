@@ -1,8 +1,8 @@
 <template lang="pug">
   form.add-users
     h3 Generate Users
-    input(type="number", min="1", max="100", v-model="howMany")
-    button(type="submit",@click.prevent="sendEvent") Submit
+    input(type="number", min="1", max="100", v-model="howMany", @keyup.enter="sendEvent")
+    button(type="submit", @click.prevent="sendEvent") Submit
 </template>
 <script>
 export default {
@@ -21,4 +21,7 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+button{
+  margin-left: 10px;
+}
 </style>

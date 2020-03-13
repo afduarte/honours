@@ -1,7 +1,10 @@
 <template lang="pug">
   .manage-users
-    user-list(:users="userList", :selected="[user]",thirdRowText="Logged in")
-    user-form(@submit="sendForm")
+    h1 Manage Users
+    .content
+      user-list.list(:users="userList", :selected="[user]", extraRowText="Logged in",
+      :clickable="true")
+      user-form(@submit="sendForm")
 </template>
 
 <script>
@@ -36,5 +39,15 @@ export default {
 
 <style lang="scss" scoped>
 .manage-users {
+  text-align: center;
+  margin-top: 60px;
+  .content {
+    margin-top: 40px;
+    display: grid;
+    grid-template-columns: 4fr 2fr;
+    gap: 50px;
+    padding-left: 10em;
+    padding-right: 10em;
+  }
 }
 </style>

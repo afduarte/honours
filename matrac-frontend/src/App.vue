@@ -33,11 +33,12 @@ export default {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-size: 18px;
   .loading {
     position: absolute;
-    width: 100%;
-    text-align: center;
+    text-align: right;
     top: 50px;
+    right: 50px;
     color: #5b34af;
   }
 }
@@ -55,7 +56,7 @@ a {
     background-color: #333333;
     color: #ffffff;
   }
-  &.router-link-active:not(.home),
+  &.router-link-active:not(.back),
   .router-link-exact-active {
     background-color: #5b34af;
     border: 2px solid #6c3ed1;
@@ -78,6 +79,9 @@ input {
   &::-webkit-input-placeholder {
     color: #666;
   }
+}
+input + button {
+  margin-bottom: 5px;
 }
 small {
   margin-left: 5px;

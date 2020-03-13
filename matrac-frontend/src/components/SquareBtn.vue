@@ -17,11 +17,14 @@ export default {
 <style lang="scss" scoped>
 .square {
   text-align: center;
-  padding: 20px;
+  padding: 50px 20px;
   height: 100%;
   cursor: pointer;
   .icon {
-    font-size: 3em;
+    font-size: 5em;
+  }
+  p {
+    font-size: 2em;
   }
 }
 </style>
