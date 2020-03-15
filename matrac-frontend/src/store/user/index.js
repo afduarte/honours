@@ -23,12 +23,14 @@ export default {
         dispatch('app/loading', true, { root: true });
         const { data } = await api.post('/user/login', qs.stringify({ pin }));
         if (!data.Pin || !data.Role) {
-          throw new Error('Invalid login');
+          throw new Error();
         }
         commit('setUser', data);
         ls.setItem('token', data.Pin);
       } catch (_) {
         commit('setUser', {});
+        ls.removeItem('token');
+        dispatch('app/error', { message: 'Invalid Login' }, { root: true });
       } finally {
         dispatch('app/loading', false, { root: true });
       }
@@ -51,6 +53,16 @@ export default {
         await dispatch('fetchUsers');
       } catch (_) {
         dispatch('app/error', { message: 'Could not create users' }, { root: true });
+      } finally {
+        dispatch('app/loading', false, { root: true });
+      }
+    },
+    async addUserToProject({ dispatch }, { project, user }) {
+      dispatch('app/loading', true, { root: true });
+      try {
+        await api.put(`/session/user/add/${encodeURIComponent(project)}?pin=${user}`);
+      } catch (_) {
+        dispatch('app/error', { message: `Could not map user ${user} to project ${project}` }, { root: true });
       } finally {
         dispatch('app/loading', false, { root: true });
       }

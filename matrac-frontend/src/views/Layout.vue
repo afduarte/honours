@@ -1,29 +1,50 @@
 <template lang="pug">
   .layout(:class="sidebarClasses")
-    .header
-      .nav
-        router-link(to="/") Home
-        router-link(to="/admin") Administration
     .sidebar-left(@click="toggleSidebar('left')")
+      .nav(:class="{ hidden:!sidebarL }")
+        .logo
+          img(alt="M-ATRAC", src="../assets/matrac-logo.svg", width="150px")
+        router-link.home(to="/annotate", @click.native="$event.stopImmediatePropagation()") Annotate
+        router-link(to="/admin", v-if="$isAdmin",
+          @click.native="$event.stopImmediatePropagation()") Manage
+      .inner(:class="{ hidden:!sidebarL }")
+        SideBarSwitcher
+      .arrow
+        div
+          fa-icon.icon(:icon="getArrow('l')")
+      .logout(:class="{ hidden:!sidebarL }")
+        router-link(to="/logout", @click.native="$event.stopImmediatePropagation()") Logout
     .content
       router-view
-    .sidebar-right(@click="toggleSidebar('right')")
-    .footer
 
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex';
+import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
+import SideBarSwitcher from './Sidebar/Switcher.vue';
 
 export default {
   name: 'layout',
+  components: { SideBarSwitcher },
   computed: {
     ...mapState('app', ['sidebarL', 'sidebarR']),
+    ...mapState('user', ['user']),
     sidebarClasses() {
       return {
-        sbl: this.sidebarL && !this.sidebarR,
-        sbr: this.sidebarR && !this.sidebarL,
-        sblr: this.sidebarL && this.sidebarR,
+        sbl: this.sidebarL,
+      };
+    },
+    getArrow() {
+      return (side) => {
+        switch (side) {
+          case 'l':
+            return this.sidebarL ? faAngleLeft : faAngleRight;
+          case 'r':
+            return this.sidebarR ? faAngleRight : faAngleLeft;
+          default:
+            return null;
+        }
       };
     },
   },
@@ -34,69 +55,75 @@ export default {
 </script>
 <style lang="scss" scoped>
 .layout {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: #3F247A;
   transition: 1s;
   display: grid;
-  grid-template-columns: 1fr 82fr 1fr;
-  &.sbl{
+  grid-template-columns: 2fr 80fr;
+  &.sbl {
     transition: 1s;
-    grid-template-columns: 12fr 71fr 1fr;
+    grid-template-columns: 12fr 70fr;
   }
-  &.sbr{
-    transition: 1s;
-    grid-template-columns: 1fr 71fr 12fr;
-  }
-  &.sblr{
-    transition: 1s;
-    grid-template-columns: 12fr 60fr 12fr;
-  }
-  grid-template-areas:
-    "header header header"
-    "sbl content sbr"
-    "sbl footer sbr";
-
-  .header {
-    grid-area: header;
-    box-shadow: -1px 1px 3px 1px #d6d6d6;
-    background-color: #686868;
-    .nav {
-      padding: 30px;
-
+  grid-template-areas: "sbl content";
+  .sidebar-left {
+    grid-area: sbl;
+    padding-left: 20px;
+    display: grid;
+    grid-template-columns: 9fr 1fr;
+    grid-template-rows: 1fr 2fr 0.5fr;
+    .logo {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+    }
+    .nav, .logout {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding-top: 10px;
+      grid-column: 1;
+      grid-row: 1;
+      padding-left: 15px;
       a {
-        font-weight: bold;
-        color: #3F247A;
-        padding: 10px;
-        margin: 5px;
-        border-radius: 5px;
-        background-color: #D6D6D6;
-
-        &.router-link-exact-active {
-          color: #D583E9;
-        }
+        margin-bottom: 10px;
+        text-align: center;
+      }
+    }
+    .logout {
+      grid-row: 3;
+    }
+    .inner {
+      transition: 1s;
+      grid-column: 1;
+      grid-row: 2;
+    }
+    .hidden {
+      width: 0;
+      display: none;
+    }
+    .arrow {
+      text-align: right;
+      padding: 5px;
+      font-size: 2em;
+      grid-column: 2;
+      grid-row: 2;
+      display: flex;
+      flex-direction: row;
+      div {
+        align-self: center;
       }
     }
   }
 
   .sidebar-left {
     grid-area: sbl;
-    background-color: #686868;
+    box-shadow: 3px 3px 3px 1px #666666a1;
+    border-right: 2px solid #333333;
   }
 
   .content {
+    z-index: 1;
     grid-area: content;
-    min-height: 90vh;
-  }
-
-  .sidebar-right {
-    grid-area: sbr;
-    background-color: #686868;
-  }
-
-  .footer {
-    grid-area: footer;
+    height: 100vh;
+    overflow-y: scroll;
   }
 }
 </style>

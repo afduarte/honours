@@ -110,7 +110,7 @@ export function readSomeLines(file, maxlines, forEachLine, onComplete) {
 export const transformers = {
   csv: lines => lines.map(l => l.split(',').map(f => f.replace(/"/g, ''))),
   tsv: lines => lines.map(l => l.split('\t').map(f => f.replace(/"/g, ''))),
-  json: lines => lines.map(l => Object.keys(JSON.parse(l))),
+  json: lines => lines.map(l => Object.values(JSON.parse(l))),
 };
 
 export default {

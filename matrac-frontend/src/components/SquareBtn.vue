@@ -1,6 +1,6 @@
 <template lang="pug">
   .square(@click="$emit('click')")
-    fa-icon(v-if="icon !== ''", :icon="icon")
+    fa-icon.icon(v-if="icon", :icon="icon")
     p {{text}}
 </template>
 
@@ -16,7 +16,15 @@ export default {
 
 <style lang="scss" scoped>
 .square {
-  padding: 30px;
+  text-align: center;
+  padding: 50px 20px;
+  height: 100%;
   cursor: pointer;
+  .icon {
+    font-size: 5em;
+  }
+  p {
+    font-size: 2em;
+  }
 }
 </style>

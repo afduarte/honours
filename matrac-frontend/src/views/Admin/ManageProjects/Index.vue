@@ -1,88 +1,77 @@
 <template lang="pug">
   .manage-projects
-    .project-list
-      template(v-for="(p, i) in projectList")
-        .project
-          p ID: {{p.Name}}
-          p Creator: {{p.CreatorID}}
-          p Created: {{p.Created}}
-          p Tags: {{p.Options}}
-          .file
-            template(v-if="upload === i")
-              vue-dropzone(id="datasetUpload",:options="dzOpts", @vdropzone-sending="sendingEvent")
-            template(v-else)
-              button(@click="upload = i") Add Dataset
+    h1 Manage Projects
+    .content
+      .project-list
+        project-list(:projects="projectList",
+          :active="activeProject",
+          @project-click="activeProject = activeProject === $event? null :$event")
 
-    .manage
-      .new-project
-        h3 Add Project
-        p Name
-        input(type="text", v-model="name")
-        p Tags (comma separated)
-        input(type="text", v-model="tags")
-        button(type="submit", @click.prevent="sendForm") Submit
+        template(v-if="activeProject")
+          .dataset-link
+            h2 Link Dataset to Project
+            template(v-for="(d, i) in datasetList")
+              .dataset(@click="linkDataset(d, activeProject)")
+                p Name: {{d.Name}}
+            router-link(to="/admin/manage-datasets") Add New
+
+      .manage
+        project-form(@submit="sendForm")
 </template>
 
 <script>
 import { mapActions, mapState, mapGetters } from 'vuex';
-import vue2Dropzone from 'vue2-dropzone';
-import 'vue2-dropzone/dist/vue2Dropzone.min.css';
+import ProjectList from '@/components/ProjectList.vue';
+import ProjectForm from '@/components/ProjectForm.vue';
 
 export default {
-  components: { vueDropzone: vue2Dropzone },
+  components: { ProjectList, ProjectForm },
   name: 'ManageProjects',
   data() {
     return {
-      name: '',
-      tags: '',
       upload: null,
+      activeProject: null,
     };
   },
   computed: {
     ...mapState('project', ['projectList']),
+    ...mapState('dataset', ['datasetList']),
     ...mapGetters('user', ['getToken']),
-    dzOpts() {
-      return {
-        url: '/api/dataset/file/new',
-        thumbnailWidth: 150,
-        headers: { Authorization: `Bearer ${this.getToken}` },
-      };
-    },
   },
   methods: {
-    ...mapActions('project', ['fetchProjects', 'newProject']),
+    ...mapActions('project', ['fetchProjects', 'newProject', 'mapDatasetToProject']),
+    ...mapActions('dataset', ['fetchDatasets']),
     ...mapActions('app', ['error']),
-    sendingEvent(file, xhr, formData) {
-      formData.append('datasetID', this.projectList[this.upload].Name);
+    async sendForm({ name, tags }) {
+      await this.newProject({ name, tags });
     },
-    async sendForm() {
-      await this.newProject({ name: this.name, tags: this.tags });
-      this.name = '';
-      this.tags = '';
+    async linkDataset(dataset, project) {
+      await this.mapDatasetToProject({ project: project.Name, dataset: dataset.ID });
+      this.activeProject = null;
     },
   },
   async mounted() {
-    await this.fetchProjects();
+    await Promise.all([
+      this.fetchProjects(),
+      this.fetchDatasets(),
+    ]);
   },
 };
 </script>
 
 <style lang="scss" scoped>
 .manage-projects {
+  text-align: center;
+  margin-top: 60px;
   display: flex;
   flex-direction: column;
-  .project-list,
-  .manage {
-    flex-grow: 1;
-  }
-  .project-list {
-    display: flex;
-    flex-direction: column;
-    .project {
-      display: flex;
-      flex-direction: row;
-      justify-content:space-around;
-    }
+  .content {
+    margin-top: 40px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 50px;
+    padding-left: 5em;
+    padding-right: 5em;
   }
 }
 </style>

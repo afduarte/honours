@@ -1,36 +1,33 @@
 <template lang="pug">
   .manage-users
-    .user-list
-      template(v-for="user in userList")
-        .user
-          p ID: {{user.Pin}}
-          p Role: {{user.Role}}
-    form.add-users
-      h3 Generate Users
-      p Add Users
-      input(type="number", min="1", max="100", v-model="howMany")
-      button(type="submit",@click.prevent="sendForm") Submit
+    h1 Manage Users
+    .content
+      user-list.list(:users="userList", :selected="[user]", extraRowText="Logged in")
+      user-form(@submit="sendForm")
 </template>
 
 <script>
 import { mapActions, mapState } from 'vuex';
+import UserList from '@/components/UserList.vue';
+import UserForm from '@/components/UserForm.vue';
 
 export default {
   name: 'ManageUsers',
+  components: { UserList, UserForm },
   data() {
     return {
       howMany: 1,
     };
   },
   computed: {
-    ...mapState('user', ['userList']),
+    ...mapState('user', ['userList', 'user']),
   },
   methods: {
     ...mapActions('user', ['fetchUsers', 'generateUsers']),
     ...mapActions('app', ['error']),
-    async sendForm() {
-      await this.generateUsers(this.howMany);
-      this.howMany = 1;
+    async sendForm(howMany) {
+      await this.generateUsers(howMany);
+      await this.fetchUsers();
     },
   },
   async mounted() {
@@ -41,20 +38,15 @@ export default {
 
 <style lang="scss" scoped>
 .manage-users {
-  display: flex;
-  flex-direction: row;
-  .user-list,
-  .add-users {
-    flex-grow: 1;
-  }
-  .user-list {
-    display: flex;
-    flex-direction: column;
-    .user {
-      display: flex;
-      flex-direction: row;
-      justify-content:space-around;
-    }
+  text-align: center;
+  margin-top: 60px;
+  .content {
+    margin-top: 40px;
+    display: grid;
+    grid-template-columns: 6fr 1fr;
+    gap: 50px;
+    padding-left: 5em;
+    padding-right: 5em;
   }
 }
 </style>

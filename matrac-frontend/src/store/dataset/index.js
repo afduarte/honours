@@ -28,16 +28,28 @@ export default {
     async newDataset({ dispatch }, {
       name = 'New Dataset',
       type = 'csv',
-      idIdx = '',
-      userIdx = '',
-      responseIdx = '',
+      IDIdx = '',
+      UserIdx = '',
+      ResponseIdx = '',
+      files = [],
     }) {
       dispatch('app/loading', true, { root: true });
       try {
         const body = qs.stringify({
-          name, type, idIdx, userIdx, responseIdx,
+          name, type, IDIdx, UserIdx, ResponseIdx,
         });
-        await api.post('/dataset/new', body);
+        const { data } = await api.post('/dataset/new', body);
+        const promises = files.map((f) => {
+          const fd = new FormData();
+          fd.append('file', f);
+          fd.append('datasetID', data.ID);
+          return api.post('/dataset/file/new', fd, {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          });
+        });
+        await Promise.all(promises);
         await dispatch('fetchDatasets');
       } catch (_) {
         dispatch('app/error', { message: 'Could not create dataset' }, { root: true });
