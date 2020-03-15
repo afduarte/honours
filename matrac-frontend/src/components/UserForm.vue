@@ -21,7 +21,11 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-button{
-  margin-left: 10px;
+.add-users{
+  display:flex;
+  flex-direction: column;
+  button{
+    margin-top: 10px;
+  }
 }
 </style>

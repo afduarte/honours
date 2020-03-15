@@ -1,31 +1,27 @@
 <template lang="pug">
   .new-dataset
-    h3 Add dataset
-    .name
-      p Name
-      input(type="text", v-model="name")
-    .file-input
-      input#file(type="file",@change="fileFieldChanged")
-      label(for="file") Select file
+    .fields
+      .name
+        p Name
+        input(type="text", v-model="name")
+      .file-input(v-if="!selectedFile")
+        input#file(type="file",@change="fileFieldChanged")
+        label(for="file") Select file
+      .file-input(v-else)
+        button.delete(v-if="selectedFile", @click="selectedFile=null")
+          fa-icon(:icon="['far','trash-alt']")
+          |  {{files[selectedFile].name}}
+        button(type="submit", @click.prevent="sendForm", :disabled="!submitEnabled") Add Dataset
     .preview
-      button(v-for="(v,k) in files",@click="selectedFile=k") {{k}}
       template(v-if="selectedFile && previews[selectedFile]")
         table
           thead
             tr
-              th(v-for="(c,i) in formattedLines.head", @click="headerClicked(i)")
-                select-column(
-                  :text="c",
-                  :options="fields",
-                  :editing="editing[i]",
-                  @selected="fieldMarked($event,i)")
+              th(v-for="(c,i) in formattedLines[0]", @click="headerClicked(i)")
+                select-column(:options="fields", @selected="fieldMarked($event,i)")
           tbody
-            tr(v-for="row in formattedLines.tail")
+            tr(v-for="row in formattedLines")
               td(v-for="c in row") {{c}}
-          tfoot
-            tr
-              td
-                button(type="submit", @click.prevent="sendForm", :disabled="!submitEnabled") Submit
 </template>
 <script>
 import Vue from 'vue';
@@ -74,18 +70,11 @@ export default {
       if (!this.selectedFileType) return [];
       const f = transformers[this.selectedFileType];
       if (!f || typeof f !== 'function') return [];
-      const lines = f(this.previews[this.selectedFile]);
-      return {
-        head: lines[0],
-        tail: lines.slice(1),
-      };
+      return f(this.previews[this.selectedFile]);
     },
     submitEnabled() {
       const fields = this.fileFields[this.selectedFile];
-      return (
-        (fields.IDIdx || fields.IDIdx === 0)
-        && (fields.UserIdx || fields.UserIdx === 0)
-      );
+      return fields.UserIdx || fields.UserIdx === 0;
     },
   },
   methods: {
@@ -96,7 +85,7 @@ export default {
       });
     },
     fileAdded(file) {
-      Vue.set(this.files, file.name, file);
+      this.files = { [file.name]: file };
       Vue.set(this.previews, file.name, []);
       Vue.set(this.fileFields, file.name, {
         IDIdx: null,
@@ -150,11 +139,18 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.name {
-  margin-bottom: 15px;
+.fields {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  margin-bottom: 10px;
+  .name p{
+    margin-block-end: 0.3em;
+  }
 }
 .file-input {
   label {
+    display: block;
     transition: 500ms;
     border: 2px solid #333333;
     border-radius: 5px;
@@ -168,6 +164,17 @@ export default {
       color: #ffffff;
     }
   }
+  button, label {
+    margin-bottom: 5px;
+    margin-left: 15px;
+  }
+  button.delete {
+    &:hover {
+      background-color: #ff5353;
+      border: 2px solid #ff9b9b;
+      color: #ffffff;
+    }
+  }
   input {
     display: none;
   }
@@ -175,6 +182,7 @@ export default {
 // Table styles
 // Heavily inspired on https://codepen.io/alico/pen/bpLgOL
 table {
+  font-size: 16px;
   padding: 10px;
   border-spacing: 1;
   border-collapse: collapse;
@@ -190,18 +198,16 @@ table {
 
   td,
   th {
-    padding-left: 8px;
-    border-right: solid 2px #333333;
-    border-left: solid 2px #333333;
+    padding-left: 10px;
   }
 
   thead tr {
-    height: 60px;
+    height: 50px;
     font-size: 16px;
   }
 
   tbody tr {
-    height: 48px;
+    height: 2.3em;
     border-bottom: 1px solid #d6d6d6;
     &:last-child {
       border: 0;

@@ -3,7 +3,7 @@
     .box
       .target
         p {{target}}
-      .context
+      .context(v-if="context")
         p.title Context:
         p {{context}}
     .options
@@ -60,6 +60,9 @@ export default {
     grid-column: 3;
     grid-row: 2;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     .target {
       font-size: 3em;
     }

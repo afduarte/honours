@@ -2,8 +2,7 @@
   .manage-users
     h1 Manage Users
     .content
-      user-list.list(:users="userList", :selected="[user]", extraRowText="Logged in",
-      :clickable="true")
+      user-list.list(:users="userList", :selected="[user]", extraRowText="Logged in")
       user-form(@submit="sendForm")
 </template>
 
@@ -44,10 +43,10 @@ export default {
   .content {
     margin-top: 40px;
     display: grid;
-    grid-template-columns: 4fr 2fr;
+    grid-template-columns: 6fr 1fr;
     gap: 50px;
-    padding-left: 10em;
-    padding-right: 10em;
+    padding-left: 5em;
+    padding-right: 5em;
   }
 }
 </style>

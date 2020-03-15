@@ -1,32 +1,18 @@
 <template lang="pug">
-  .container
-    .text
-      p {{text}}
-    .select
-      template(v-if="editing")
-        select(v-model="value")
-          option(v-for="(v,k) in innerOpts", :value="k") {{v}}
-      template(v-else)
-        p {{valueName}}
+  .select
+    select(v-model="value")
+      option(v-for="(v,k) in innerOpts", :value="k") {{v}}
 </template>
 <script>
 export default {
   props: {
-    editing: { type: Boolean },
     options: { type: Object },
-    text: { type: String },
   },
   data() {
     return {
       value: null,
-      innerOpts: { ...this.options, null: '-- None --' },
+      innerOpts: { ...this.options, [null]: 'None' },
     };
-  },
-  computed: {
-    valueName() {
-      if (!this.value) return 'None ⌄';
-      return this.options[this.value];
-    },
   },
   watch: {
     value() {
@@ -49,6 +35,16 @@ export default {
       border: 1px solid #333333;
       padding: 5px;
       border-radius: 10px;
+    }
+    select {
+      font-size: 1em;
+      padding: 5px;
+      border: none;
+      background-color: #ffffff;
+      width: 100%;
+      &:focus{
+        outline: none;
+      }
     }
   }
 </style>

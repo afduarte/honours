@@ -7,8 +7,9 @@
         p.title Context:
         p {{context}}
     .options
-      .option(v-for="o in options", @click="clicked(o)", :class="{active:selected[o]}")
+      .option(v-for="(o,i) in options", @click="clicked(o)", :class="{active:selected[o]}")
         p {{o}}
+        kbd(v-if="keys[i]") {{keys[i]}}
     .submit
       .option(@click="submit")
         p Submit
@@ -28,6 +29,7 @@ export default {
   data() {
     return {
       selected: {},
+      keys: ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'z', 'x', 'c', 'v', 'b', 'n', 'm'],
     };
   },
   methods: {
@@ -42,6 +44,10 @@ export default {
       if (evt.key === 'Enter') {
         this.submit();
       }
+      const idx = this.keys.findIndex(k => k === evt.key);
+      if (idx < 0) return; // this ignores all keys that are not in the array
+      const option = this.options[idx];
+      this.clicked(option);
     },
     submit() {
       this.$emit('next');
@@ -109,6 +115,9 @@ export default {
       &.active{
         background-color: #5b34af;
         color: #ffffff;
+        kbd {
+          color: #000000;
+        }
       }
       display: flex;
       flex-direction: column;
@@ -117,11 +126,6 @@ export default {
         margin-block-end: 5px;
         margin-block-start: 0;
       }
-    }
-  }
-  .submit {
-    grid-row: 4;
-    .option {
       kbd {
         text-align: center;
         margin: 0 auto;
@@ -134,6 +138,9 @@ export default {
         background-color: #cacaca;
       }
     }
+  }
+  .submit {
+    grid-row: 4;
   }
 }
 </style>

@@ -1,20 +1,22 @@
 <template lang="pug">
   .manage-projects
-    .project-list
-      project-list(:projects="projectList",
-        :active="activeProject",
-        @project-click="activeProject = activeProject === $event? null :$event")
+    h1 Manage Projects
+    .content
+      .project-list
+        project-list(:projects="projectList",
+          :active="activeProject",
+          @project-click="activeProject = activeProject === $event? null :$event")
 
-      template(v-if="activeProject")
-        .dataset-link
-          h2 Link Dataset to Project
-          template(v-for="(d, i) in datasetList")
-            .dataset(@click="linkDataset(d, activeProject)")
-              p Name: {{d.Name}}
-          router-link(to="/admin/manage-datasets") Add New
+        template(v-if="activeProject")
+          .dataset-link
+            h2 Link Dataset to Project
+            template(v-for="(d, i) in datasetList")
+              .dataset(@click="linkDataset(d, activeProject)")
+                p Name: {{d.Name}}
+            router-link(to="/admin/manage-datasets") Add New
 
-    .manage
-      project-form(@submit="sendForm")
+      .manage
+        project-form(@submit="sendForm")
 </template>
 
 <script>
@@ -59,10 +61,17 @@ export default {
 
 <style lang="scss" scoped>
 .manage-projects {
+  text-align: center;
+  margin-top: 60px;
   display: flex;
   flex-direction: column;
-  .manage {
-    flex-grow: 1;
+  .content {
+    margin-top: 40px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 50px;
+    padding-left: 5em;
+    padding-right: 5em;
   }
 }
 </style>

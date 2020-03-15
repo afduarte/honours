@@ -62,6 +62,14 @@ a {
     border: 2px solid #6c3ed1;
     color: #ffffff;
   }
+  &:disabled,
+  &[disabled] {
+    cursor:default;
+    background-color: #bbbbbb;
+    border: 2px solid #bbbbbb;
+    color: #ffffff;
+    text-decoration: none;
+  }
 }
 input {
   outline: none;

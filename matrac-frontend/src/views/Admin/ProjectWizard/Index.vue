@@ -11,16 +11,28 @@
             button(@click="nextFunction") Yes, leave
             button(@click="showModal=false") No, stay
       template(v-if="showStart")
-        p This wizard will guide you through the creation of an annotation project.
-          | The steps are easy:
+        .instructions
+          p This wizard will guide you through the creation of a new project.
+          p An Annotation Project is defined by a name and
+            |  a set of tags that annotators will be able to select from to classify the data as.
+          p A project needs to have an associated dataset. This is where unlabelled data items
+            |  will be taken and presented to an annotator to annotate.
+          p Once your project has a dataset, you can associate users to it.
+            |  These will be the annotators. They are identified by a pin number.
+            |  As the administrator, you should contact them and give them their pin
+            |  which they can use to log in to the system.
+          p Finally, you will be asked to select the type of project that better suits your needs.
+            |  Currently the system supports single and multi-label classification tasks.
+        p So, quick recap:
         ol
-          li Create a project, and the associated set of tags.
-          li Upload a new dataset or associate your project with a previously uploaded one.
-          li Select a set of users that can annotate your project.
-          li Select the type of annotation task from the growing list of predefined types.
+          li Project: Create a project, and the associated set of tags.
+          li Dataset: Upload a new dataset or associate your project with a previously uploaded one.
+          li Users: Select a set of users that can annotate your project.
+          li Task Type: Select the type of annotation task from the list of predefined types.
           li ...
           li That's it... You're done! 😃
-        router-link.start(to="/admin/project-wizard/create-project") Start
+        .start
+          router-link(to="/admin/project-wizard/create-project") I'm ready!
       template(v-else)
         router-view
 </template>
@@ -56,9 +68,18 @@ export default {
 .container{
   display:grid;
   grid-template-columns: 2fr 8fr 2fr;
+
   .title{
     text-align: center;
     grid-column: 2;
+  }
+  .start{
+    text-align:center;
+    margin: 40px 0;
+    a {
+      font-size: 1.3em;
+      padding: 20px 30px;
+    }
   }
   .wizard{
     grid-column: 2;
@@ -66,6 +87,9 @@ export default {
     border-radius: 10px;
     padding: 20px;
     font-size: 1.3em;
+    .instructions {
+      font-size: 0.85em;
+    }
   }
   .modal-body {
     margin-top: 30px;

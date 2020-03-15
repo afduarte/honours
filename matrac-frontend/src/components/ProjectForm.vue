@@ -1,13 +1,14 @@
 <template lang="pug">
   .new-project
-    h3 New Project
-    p Name
-      small The name of the project
-    input(type="text", v-model="name")
-    p Tags
-      small A list of tags for the classification task. Click the plus button to add tags.
-    tag-adder(v-model="tags")
-    button.submit(type="submit", @click.prevent="$emit('submit',{name,tags})") Submit
+    .fields
+      .name
+        p Name
+        input(type="text", v-model="name")
+      .tags
+        p Tags
+        tag-adder(v-model="tags")
+    .submit
+      button(type="submit", @click.prevent="$emit('submit',{name,tags})") Submit
 </template>
 <script>
 import TagAdder from '@/components/TagAdder.vue';
@@ -24,7 +25,16 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.submit{
-  margin-left: 5px;
+.new-project {
+  .fields {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .submit {
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 30px;
+  }
 }
 </style>

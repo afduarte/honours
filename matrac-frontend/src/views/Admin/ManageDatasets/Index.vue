@@ -1,11 +1,9 @@
 <template lang="pug">
   .manage-datasets
-    dataset-list(
-      :datasets="datasetList",
-      :active="activeDataset",
-      @dataset-click="activeDataset = activeDataset === $event? null :$event")
-
-    dataset-form(:existing="datasetList", @submit="sendForm")
+    h1 Manage Datasets
+    .content
+      dataset-list(:datasets="datasetList")
+      dataset-form(:existing="datasetList", @submit="sendForm")
 </template>
 
 <script>
@@ -39,7 +37,17 @@ export default {
 
 <style lang="scss" scoped>
 .manage-datasets {
+  margin-top: 60px;
+  text-align: center;
   display: flex;
   flex-direction: column;
+  .content {
+    margin-top: 40px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 50px;
+    padding-left: 5em;
+    padding-right: 5em;
+  }
 }
 </style>

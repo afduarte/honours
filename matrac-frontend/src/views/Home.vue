@@ -1,8 +1,9 @@
 <template lang="pug">
   .home
     h1 Your Projects
-    h3(v-if="!projectList.length") It seems like you've not been assigned to any project yet 😢
-    router-link(v-if="user.Role === 'AdminRole'", to="/admin/project-wizard") Create a new project
+    h3(v-if="!projectList.length && !loading")
+      | It seems like you've not been assigned any projects yet 😢
+    router-link(v-if="$isAdmin", to="/admin/project-wizard") Create a new project
     .projects
       router-link(v-for="p in projectList", :key="p.Name",
         :to="'/annotate/project/'+encodeURIComponent(p.Name)")
@@ -30,6 +31,7 @@ export default {
   computed: {
     ...mapState('project', ['projectList']),
     ...mapState('user', ['user']),
+    ...mapState('app', ['loading']),
   },
   methods: {
     ...mapActions('project', ['fetchProjects']),
@@ -49,6 +51,7 @@ export default {
     text-align: center;
     justify-self: center;
     max-width: 17ch;
+    margin-bottom: 20px;
   }
   display: grid;
   .projects {

@@ -7,6 +7,14 @@ import store from '@/store';
 
 Vue.use(VueRouter);
 
+async function fetchProject(to, from, next) {
+  const proj = store.state.project.projectList.find(p => p.Name === to.params.project);
+  if (!proj) {
+    await store.dispatch('project/fetchProjects');
+  }
+  next();
+}
+
 const routes = [
   {
     path: '/annotate',
@@ -14,17 +22,11 @@ const routes = [
     component: Home,
   },
   {
-    path: '/annotate/project/:session',
+    path: '/annotate/project/:project',
     name: 'Annotate',
     component: Annotation,
     props: true,
-    async beforeEnter(to, from, next) {
-      const proj = store.state.project.projectList.find(p => p.Name === to.params.session);
-      if (!proj) {
-        await store.dispatch('project/fetchProjects');
-      }
-      next();
-    },
+    beforeEnter: fetchProject,
   },
   {
     path: '/logout',
@@ -65,22 +67,28 @@ const routes = [
     children: [
       {
         path: 'create-project',
-        name: 'Create Project',
+        name: 'Create Project (1/4)',
         component: () => import(/* webpackChunkName: "admin/project-wizard" */ '../views/Admin/ProjectWizard/Steps/One.vue'),
       },
       {
-        path: 'link-dataset',
-        name: 'Link Dataset',
+        path: 'link-dataset/:project',
+        name: 'Link Dataset (2/4)',
+        props: true,
+        beforeEnter: fetchProject,
         component: () => import(/* webpackChunkName: "admin/project-wizard" */ '../views/Admin/ProjectWizard/Steps/Two.vue'),
       },
       {
-        path: 'link-users',
-        name: 'Link Users',
+        path: 'link-users/:project',
+        name: 'Link Users (3/4)',
+        props: true,
+        beforeEnter: fetchProject,
         component: () => import(/* webpackChunkName: "admin/project-wizard" */ '../views/Admin/ProjectWizard/Steps/Three.vue'),
       },
       {
-        path: 'project-type',
-        name: 'Select Project Type',
+        path: 'project-type/:project',
+        name: 'Select Project Type (4/4)',
+        props: true,
+        beforeEnter: fetchProject,
         component: () => import(/* webpackChunkName: "admin/project-wizard" */ '../views/Admin/ProjectWizard/Steps/Four.vue'),
       },
       {
@@ -88,6 +96,7 @@ const routes = [
         name: 'Done!',
         component: () => import(/* webpackChunkName: "admin/project-wizard" */ '../views/Admin/ProjectWizard/Steps/Five.vue'),
       },
+      { path: '*', redirect: '/admin/project-wizard' },
     ],
   },
   { path: '*', redirect: '/annotate' },

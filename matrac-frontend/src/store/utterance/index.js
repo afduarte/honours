@@ -9,6 +9,7 @@ export default {
       history: [],
       project: null,
       current: 0,
+      sessionStart: null,
     };
   },
   mutations: {
@@ -23,6 +24,12 @@ export default {
     },
     addToHistory(state, u) {
       state.history.push(u);
+    },
+    clearHistory(state) {
+      state.history = [];
+    },
+    setSessionStart(state, val) {
+      state.sessionStart = val;
     },
   },
   actions: {
@@ -61,6 +68,10 @@ export default {
       } finally {
         dispatch('app/loading', false, { root: true });
       }
+    },
+    startSession({ commit }) {
+      commit('clearHistory');
+      commit('setSessionStart', new Date());
     },
   },
   getters: {

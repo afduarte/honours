@@ -52,8 +52,11 @@ export default {
   display: grid;
   grid-template-columns: 3fr 5fr 3fr;
   grid-template-rows: 2fr 3fr 6fr;
+  height: 100vh;
+  width: 100vw;
   .box {
-    width:100%;
+    display:block;
+    width: 100%;
     padding: 10px;
     grid-column: 2;
     grid-row: 2;
@@ -69,6 +72,7 @@ export default {
     $in-w: $n-char * ($char-w + $gap);
 
     input {
+      padding: 0;
       border: none;
       width: $in-w;
       background: repeating-linear-gradient(
@@ -88,7 +92,8 @@ export default {
       }
     }
     p {
-      font-size: 1.5em;
+      width: 100%;
+      font-size: 1.3em;
       &.error {
         color: #ff5555;
         font-weight: bold;
