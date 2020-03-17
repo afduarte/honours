@@ -3,7 +3,7 @@
     .sidebar-left(@click="toggleSidebar('left')")
       .nav(:class="{ hidden:!sidebarL }")
         .logo
-          img(alt="M-ATRAC", src="../assets/matrac-logo.svg", width="150px")
+          img(alt="Massive ATAC Logo", src="../assets/matac-logo.svg", width="150px")
         router-link.home(to="/annotate", @click.native="$event.stopImmediatePropagation()") Annotate
         router-link(to="/admin", v-if="$isAdmin",
           @click.native="$event.stopImmediatePropagation()") Manage

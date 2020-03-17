@@ -1,0 +1,31 @@
+version: '2.1'
+
+services:
+  gateway:
+    image: nginx:alpine
+    volumes:
+      - ${PWD}/data/gateway/html:/html
+      - ${PWD}/data/gateway/conf:/etc/nginx/conf.d
+    restart: on-failure
+    ports:
+      - "8080:80"
+    depends_on:
+      - matrac
+    networks:
+      - matrac-net
+
+  # Backend apps
+  matrac:
+    image: matrac-dev
+    volumes:
+      - ${PWD}/data/matrac/matrac.db:/matrac.db
+    restart: on-failure
+    ports:
+      - "8082:80"
+    environment:
+      - PORT=80
+    networks:
+      - matrac-net
+
+networks:
+  matrac-net:
