@@ -405,3 +405,18 @@ https://www.datacamp.com/community/tutorials/active-learning
 Research questions? Struggling to define them.
 
 Presentation of system functionality in Aims and Objective or its own chapter? technical specification? 
+
+# 2020
+
+# 16-03 User testing with Dimitra
+
+## Notes:
+
+Add dataset button is not obvious
+
+User generation needs instructions
+
+logout button scrolled out of screen
+
+keyboard shortcuts are not obvious
+

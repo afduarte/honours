@@ -1,0 +1,67 @@
+@startuml
+namespace model {
+    class Annotation << (S,Aquamarine) >> {
+        + Created time.Time
+        + User User
+        + UserPin string
+        + Tags string
+        + Session Session
+        + SessionName string
+        + Notes string
+        + UtteranceID string
+
+    }
+    class Dataset << (S,Aquamarine) >> {
+        - lines []Utterance
+
+        + Name string
+        + Type string
+        + IDIdx string
+        + UserIdx string
+        + ResponseIdx string
+
+    }
+    class DatasetToFile << (S,Aquamarine) >> {
+        + Dataset Dataset
+        + FilePath string
+        + Error string
+
+    }
+    class Session << (S,Aquamarine) >> {
+        - creator User
+        - dataset Dataset
+
+        + Name string
+        + CreatorID string
+        + DatasetID uint
+        + Created time.Time
+        + Options string
+        + Users []User
+        + AnnotationType string
+
+    }
+    class User << (S,Aquamarine) >> {
+        + Pin string
+        + Role PermissionRole
+        + Sessions []Session
+
+        + CanCreate(i <font color=blue>interface</font>{}) bool
+
+    }
+    class Utterance << (S,Aquamarine) >> {
+        - dataset Dataset
+
+        + ID string
+        + CreatedAt time.Time
+        + Text string
+        + Response string
+        + DatasetID uint
+
+    }
+    enum model.PermissionRole << (E, #FF7700) >>  {
+        AdminRole
+        UserRole
+    }
+}
+
+@enduml
