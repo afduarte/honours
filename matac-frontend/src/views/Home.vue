@@ -11,7 +11,7 @@
           h3 {{p.Name}}
           p(v-if="ac[p.AnnotationType]") Type:
             b {{ac[p.AnnotationType].name}}
-          p
+          p(v-if="$isAdmin")
             b {{p.Users.length}} Annotator{{p.Users.length > 1?'s':''}}
 
 </template>

@@ -1,4 +1,4 @@
-# matrac-frontend
+# matac-frontend
 
 ## Project setup
 ```
