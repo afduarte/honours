@@ -42,8 +42,8 @@ export default {
       fileFields: {},
       fields: {
         IDIdx: 'Unique Field',
-        UserIdx: 'Annotation Target',
-        ResponseIdx: 'Context Field',
+        TargetIdx: 'Annotation Target',
+        ContextIdx: 'Context Field',
       },
     };
   },
@@ -74,7 +74,7 @@ export default {
     },
     submitEnabled() {
       const fields = this.fileFields[this.selectedFile];
-      return fields.UserIdx || fields.UserIdx === 0;
+      return fields.TargetIdx || fields.TargetIdx === 0;
     },
   },
   methods: {
@@ -89,8 +89,8 @@ export default {
       Vue.set(this.previews, file.name, []);
       Vue.set(this.fileFields, file.name, {
         IDIdx: null,
-        UserIdx: null,
-        ResponseIdx: null,
+        TargetIdx: null,
+        ContextIdx: null,
       });
       if (!this.selectedFile) {
         this.selectedFile = file.name;

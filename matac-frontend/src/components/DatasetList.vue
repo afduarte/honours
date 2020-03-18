@@ -12,8 +12,8 @@
       p {{d.Name}}
       p {{d.Type}}
       p {{d.IDIdx}}
-      p {{d.UserIdx}}
-      p {{d.ResponseIdx || 'None'}}
+      p {{d.TargetIdx}}
+      p {{d.ContextIdx || 'None'}}
 </template>
 <script>
 export default {

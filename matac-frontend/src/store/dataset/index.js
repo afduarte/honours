@@ -29,14 +29,14 @@ export default {
       name = 'New Dataset',
       type = 'csv',
       IDIdx = '',
-      UserIdx = '',
-      ResponseIdx = '',
+      TargetIdx = '',
+      ContextIdx = '',
       files = [],
     }) {
       dispatch('app/loading', true, { root: true });
       try {
         const body = qs.stringify({
-          name, type, IDIdx, UserIdx, ResponseIdx,
+          name, type, IDIdx, TargetIdx, ContextIdx,
         });
         const { data } = await api.post('/dataset/new', body);
         const promises = files.map((f) => {

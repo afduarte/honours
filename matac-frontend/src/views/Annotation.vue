@@ -1,6 +1,6 @@
 <template lang="pug">
   .container
-    component(v-if="project",
+    component(v-if="uProject",
       :is="ac[uProject.AnnotationType].component",
       :options="opts",
       :id="currentUtterance.ID",
