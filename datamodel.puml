@@ -17,8 +17,8 @@ namespace model {
         + Name string
         + Type string
         + IDIdx string
-        + UserIdx string
-        + ResponseIdx string
+        + TargetIdx string
+        + ContextIdx string
 
     }
     class DatasetToFile << (S,Aquamarine) >> {
