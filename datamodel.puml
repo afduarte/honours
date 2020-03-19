@@ -53,8 +53,8 @@ namespace model {
 
         + ID string
         + CreatedAt time.Time
-        + Text string
-        + Response string
+        + Target string
+        + Context string
         + DatasetID uint
 
     }

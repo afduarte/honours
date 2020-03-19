@@ -58,7 +58,7 @@ export default {
         const body = qs.stringify({ tags, utterance, note });
         await api.post(`/annotation/add/${encodeURIComponent(project)}`, body);
         const fullUtterance = state.utteranceList.find(u => u.ID === utterance);
-        commit('addToHistory', { utterance: fullUtterance.Text, tags });
+        commit('addToHistory', { utterance: fullUtterance.Target, tags });
         commit('nextUtterance');
         if (state.utteranceList.length < 1) {
           await dispatch('fetchUtterances');

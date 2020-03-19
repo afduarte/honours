@@ -4,8 +4,8 @@
       :is="ac[uProject.AnnotationType].component",
       :options="opts",
       :id="currentUtterance.ID",
-      :target="currentUtterance.Text"
-      :context="currentUtterance.Response",
+      :target="currentUtterance.Target"
+      :context="currentUtterance.Context",
       @submit="submitted"
       )
     .history
