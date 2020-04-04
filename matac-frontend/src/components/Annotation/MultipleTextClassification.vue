@@ -3,7 +3,7 @@
     .box
       .target
         p {{target}}
-      .context
+      .context(v-if="context")
         p.title Context:
         p {{context}}
     .options
